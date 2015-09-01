@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1.
+        Posting List
+    ul
+        each posting, i in postinglist
+            li
+                a(href="mailto:#{posting.email}")= posting.title
