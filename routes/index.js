@@ -82,7 +82,7 @@ router.post('/addposting', function(req, res) {
         else {
             //send email
             var mailOptions={
-                to : "antoninamalyarenko@gmail.com",
+                to : postEmail,
                 subject : "New Post from ClubScreenWolverine- Please Read",
                 text: "Title: " + postTitle + " Club/Organization: " + postClub + " Email: " + postEmail
                 + " Involvement: " + postInvolvement + " Position Type: " + positionType + " Club Type: "
