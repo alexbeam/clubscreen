@@ -1,9 +1,0 @@
-extends layout
-
-block content
-    h1= title
-    form#formAddPosting(name="addposting",method="post",action="/addposting")
-        input(type="text", placeholder="Title", name="posttitle")
-        input(type="text", placeholder="Club", name="club")
-        input(type="text", placeholder="email", name="email")
-        button#btnSubmit(type="submit") submit
