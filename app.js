@@ -10,7 +10,6 @@ var monk = require('monk');
 var db = monk('127.0.0.1:27017/nodetest1');
 
 var routes = require('./routes/index');
-var postings = require('./routes/postings');
 
 var app = express();
 
@@ -32,7 +31,7 @@ app.use(function(req,res,next){
 });
 
 app.use('/', routes);
-app.use('/postings', postings);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
