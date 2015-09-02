@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var nodemailer = require('nodemailer');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -27,6 +28,15 @@ router.get('/newposting', function(req, res) {
     res.render('newposting', { title: 'Add New Posting' });
 });
 
+/* Configure SMTP server details with Gmail*/
+var transporter = nodemailer.createTransport("SMTP",{
+    service: "Gmail",
+    auth: {
+        user: "antoninamalyarenko@gmail.com",
+        pass: "meow1234"
+    }
+});
+
 /* POST to Add User Service */
 router.post('/addposting', function(req, res) {
 
@@ -35,7 +45,7 @@ router.post('/addposting', function(req, res) {
 
     // Get our form values. These rely on the "name" attributes
     var postTitle = req.body.title;
-    var postClub = req.body.club
+    var postClub = req.body.club;
     var postEmail = req.body.email;
     var postInvolvement = req.body.involvement;
     var positionType = req.body.position_type;
@@ -50,7 +60,7 @@ router.post('/addposting', function(req, res) {
         "title" : postTitle,
         "club" : postClub,
         "email" : postEmail,
-        "involvenemt" : postInvolvement,
+        "involvement" : postInvolvement,
         "position_type" : positionType,
         "club_type" : clubType,
         "description" : clubDescr,
@@ -62,6 +72,25 @@ router.post('/addposting', function(req, res) {
             res.send("There was a problem adding the information to the database.");
         }
         else {
+            //send email
+            var mailOptions={
+                to : "antoninamalyarenko@gmail.com",
+                subject : "New Post from ClubScreenWolverine- Please Read",
+                text: "Title: " + postTitle + " Club/Organization: " + postClub + " Email: " + postEmail
+                + " Involvement: " + postInvolvement + " Position Type: " + positionType + " Club Type: "
+                + clubType + " Club Description: " + clubDescr
+            }
+            console.log(mailOptions);
+            transporter.sendMail(mailOptions, function(error, response){
+                if(error){
+                    console.log(error);
+                    res.end("error");
+                }else{
+                    console.log("Message sent: " + response.message);
+                    res.end("sent");
+                }
+            });
+
             // And forward to success page
             res.redirect("postinglist");
         }
