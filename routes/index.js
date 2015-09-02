@@ -41,13 +41,15 @@ router.post('/addposting', function(req, res) {
     // Set our collection
     var collection = db.get('postingcollection');
 
+    var expdate = new Date(new Date().setDate(new Date().getDate() + 7))
+
     // Submit to the DB
     collection.insert({
         "title" : Title,
         "club" : Club,
         "email" : Email,
-        "createdAt": new Date(),
-        "expireAt": new Date('Sept 2, 2015 14:08:00')
+        "created": new Date(),
+        "expireAt": expdate
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
