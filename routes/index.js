@@ -34,18 +34,26 @@ router.post('/addposting', function(req, res) {
     var db = req.db;
 
     // Get our form values. These rely on the "name" attributes
-    var Title = req.body.posttitle;
-    var Club = req.body.club
-    var Email = req.body.email;
+    var postTitle = req.body.title;
+    var postClub = req.body.club
+    var postEmail = req.body.email;
+    var postInvolvement = req.body.involvement;
+    var positionType = req.body.position_type;
+    var clubType = req.body.club_type;
+    var clubDescr = req.body.description;
 
     // Set our collection
     var collection = db.get('postingcollection');
 
     // Submit to the DB
     collection.insert({
-        "title" : Title,
-        "club" : Club,
-        "email" : Email,
+        "title" : postTitle,
+        "club" : postClub,
+        "email" : postEmail,
+        "involvenemt" : postInvolvement,
+        "position_type" : positionType,
+        "club_type" : clubType,
+        "description" : clubDescr,
         "createdAt": new Date(),
         "expireAt": new Date('Sept 2, 2015 14:08:00')
     }, function (err, doc) {
