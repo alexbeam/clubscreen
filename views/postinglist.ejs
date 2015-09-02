@@ -79,12 +79,12 @@
   <tbody>
   	<% for(var post=0; post<postinglist.length; post++) { %>
 	    <tr>
-	      <td><h5>1</h5></td>
+	      <td><h5><%= postinglist[post]._id %></h5></td>
 	      <td><h4>
 	      <a href="#/" style="color: #00274c; text-decoration: underline;">
 	      <%= postinglist[post].title %></a>
 	 	  </h4><%= postinglist[post].club %><br>Applicants Received: 16</td>
-	      <td><%= postinglist[post].createdAt %><br><%= postinglist[post].expireAt %></td>
+	      <td><%= postinglist[post].created %><br><%= postinglist[post].expires %></td>
 	      <td><button type="submit" class="btn btn-block btn-primary" style="background-color: #00274c; color: #ffcb05;">Apply</button></td>
 	    </tr>
     <% } %>

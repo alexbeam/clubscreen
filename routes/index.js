@@ -45,15 +45,22 @@ router.post('/addposting', function(req, res) {
 
     // Get our form values. These rely on the "name" attributes
     var postTitle = req.body.title;
-    var postClub = req.body.club;
-    var postEmail = req.body.email;
+    var postClub = req.body.club
+    var postEmail = req.body.email + '@umich.edu'
     var postInvolvement = req.body.involvement;
     var positionType = req.body.position_type;
     var clubType = req.body.club_type;
     var clubDescr = req.body.description;
+    var daysOnSite = req.body.days
 
     // Set our collection
     var collection = db.get('postingcollection');
+
+    //Timing
+    var expdate = new Date(new Date().setDate(new Date().getDate() + daysOnSite))
+    var created = new Date()
+    var created_format = (created.getMonth() + 1) + '/' + created.getDate() + '/' + (created.getYear()-100+2000)
+    var exp_format = (expdate.getMonth() + 1) + '/' + expdate.getDate() + '/' + (expdate.getYear()-100+2000)
 
     // Submit to the DB
     collection.insert({
@@ -64,8 +71,9 @@ router.post('/addposting', function(req, res) {
         "position_type" : positionType,
         "club_type" : clubType,
         "description" : clubDescr,
-        "createdAt": new Date(),
-        "expireAt": new Date('Sept 2, 2015 14:08:00')
+        "created": created_format,
+        "expireAt": expdate,
+        "expires" : exp_format
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
