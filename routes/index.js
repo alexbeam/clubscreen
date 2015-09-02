@@ -45,7 +45,9 @@ router.post('/addposting', function(req, res) {
     collection.insert({
         "title" : Title,
         "club" : Club,
-        "email" : Email
+        "email" : Email,
+        "createdAt": new Date(),
+        "expireAt": new Date('Sept 2, 2015 14:08:00')
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
