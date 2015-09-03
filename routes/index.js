@@ -51,13 +51,25 @@ router.post('/newapplicant', function(req,res){
     var postEmail = req.body.email;
     var postPhone = req.body.phone;
     var postYear = req.body.year;
-    // var postID = req.body.id;
+    var postID = req.body.id;
+
+    var db = req.db;
+    var collection = db.get('postingcollection');
+    
+    console.log(postID)
+
+    var posting = collection.findOne({_id: postID });
+
+    console.log(posting.title)
+
+    // var title = posting;
+
     var mailList = 'antoninamalyarenko@gmail.com,alexbeam@umich.edu,' + postEmail;
 
     var mailOptions={
         to : mailList,
         subject : "New Post from ClubScreenWolverine- Please Read",
-        text: "Name: " + postFirstName + " " + postLastName
+        text: "Name: " + postFirstName + " " + postLastName + " You applied for the " + title
     };
     console.log(mailOptions);
     transporter.sendMail(mailOptions, function(error, response){
@@ -69,7 +81,6 @@ router.post('/newapplicant', function(req,res){
             res.end("sent");
         }
     });
-
 
 
     // And forward to success page
