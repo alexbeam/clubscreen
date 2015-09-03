@@ -51,39 +51,40 @@ router.post('/newapplicant', function(req,res){
     var postEmail = req.body.email;
     var postPhone = req.body.phone;
     var postYear = req.body.year;
-    var postID = req.body.id;
+    var postID = req.body.id.toString();
 
     var collection = db.get('postingcollection');
-    console.log(postID);
 
-    collection.findOne({_id: postID }, function(e, DBObject){
-        if (e) return next(e);
-        console.log(DBObject);
-        return DBObject;
+    collection.findOne({_id: postID}, function(err, posting) {
+        console.log(posting);
 
+        var mailList = 'antoninamalyarenko@gmail.com,alexbeam@umich.edu,' + postEmail;
+
+        var mailOptions={
+            to : mailList,
+            subject : "New Post from ClubScreenWolverine- Please Read",
+            text: "Name: " + postFirstName + " " + postLastName + " You applied for the "+posting.title
+        };
+        console.log(mailOptions);
+
+        postCount= posting.received;
+        collection.update({_id:postID},{$set:{received: postCount +1}}, function(err, updated) {
+            if (err || !updated) console.log("Post not updated");
+            else console.log("Post updated");
+        });
+
+        transporter.sendMail(mailOptions, function(error, response){
+            if(error){
+                console.log(error);
+                res.end("error");
+            }else{
+                console.log("Message sent: " + response.message);
+
+                // And forward to success page
+                res.redirect("postinglist");
+            }
+        });
     });
-    
-
-    var mailList = 'antoninamalyarenko@gmail.com,alexbeam@umich.edu,' + postEmail;
-    var mailOptions={
-        to : mailList,
-        subject : "New Post from ClubScreenWolverine- Please Read",
-        text: "Name: " + postFirstName + " " + postLastName + " You applied for the " + title
-    };
-    console.log(mailOptions);
-    transporter.sendMail(mailOptions, function(error, response){
-        if(error){
-            console.log(error);
-            res.end("error");
-        }else{
-            console.log("Message sent: " + response.message);
-            res.end("sent");
-        }
-    });
-
-
-    // And forward to success page
-    res.redirect("postinglist");
 
 });
 
@@ -137,7 +138,8 @@ router.post('/addposting', function(req, res) {
         "description" : clubDescr,
         "created": created_format,
         "expireAt": expdate,
-        "expires" : exp_format
+        "expires" : exp_format,
+        "received": 0
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
