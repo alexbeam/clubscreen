@@ -49,26 +49,22 @@ router.post('/newapplicant', function(req,res){
     var postFirstName = req.body.first;
     var postLastName = req.body.last;
     var postEmail = req.body.email;
-<<<<<<< HEAD
-=======
     var postPhone = req.body.phone;
     var postYear = req.body.year;
     var postID = req.body.id;
 
-    var db = req.db;
     var collection = db.get('postingcollection');
+    console.log(postID);
+
+    collection.findOne({_id: postID }, function(e, DBObject){
+        if (e) return next(e);
+        console.log(DBObject);
+        return DBObject;
+
+    });
     
-    console.log(postID)
 
-    var posting = collection.findOne({_id: postID });
-
-    console.log(posting.title)
-
-    // var title = posting;
-
->>>>>>> d5583c403e81f6588fdc54d832256168517bbfe9
     var mailList = 'antoninamalyarenko@gmail.com,alexbeam@umich.edu,' + postEmail;
-
     var mailOptions={
         to : mailList,
         subject : "New Post from ClubScreenWolverine- Please Read",
