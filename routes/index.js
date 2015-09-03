@@ -27,9 +27,10 @@ router.get('/newposting', function(req, res) {
 router.get('/posting/:id', function(req,res){
     var db = req.db;
     var collection = db.get('postingcollection');
-    collection.findOne({_id: req.collection.id(req.params.id)}, function(e, result){
+    console.log(req.params.id)
+    collection.findOne({_id: req.params.id }, function(e, result){
         if (e) return next(e);
-        res.send(result)
+        res.render('posting', { post: result})
     })
 });
 
@@ -45,15 +46,18 @@ router.delete('/posting/:id', function(req, res) {
 
 router.post('/newapplicant', function(req,res){
     var db = req.db;
+    var postFirstName = req.body.first;
+    var postLastName = req.body.last;
     var postEmail = req.body.email;
-    var mailList = 'antoninamalyarenko@gmail.com, alexbeam@umich.edu, ' + postEmail;
+    var postPhone = req.body.phone;
+    var postYear = req.body.year;
+    // var postID = req.body.id;
+    var mailList = 'antoninamalyarenko@gmail.com,alexbeam@umich.edu,' + postEmail;
 
     var mailOptions={
         to : mailList,
         subject : "New Post from ClubScreenWolverine- Please Read",
-        text: "Title: " + postTitle + " Club/Organization: " + postClub + " Email: " + postEmail
-        + " Involvement: " + postInvolvement + " Position Type: " + positionType + " Club Type: "
-        + clubType + " Club Description: " + clubDescr
+        text: "Name: " + postFirstName + " " + postLastName
     };
     console.log(mailOptions);
     transporter.sendMail(mailOptions, function(error, response){
@@ -65,6 +69,8 @@ router.post('/newapplicant', function(req,res){
             res.end("sent");
         }
     });
+
+
 
     // And forward to success page
     res.redirect("postinglist");
@@ -130,7 +136,7 @@ router.post('/addposting', function(req, res) {
         else {
             //send email
             var mailOptions={
-                to : postEmail,
+                to : 'alexbeam@umich.edu,' + postEmail,
                 subject : "New Post from ClubScreenWolverine- Please Read",
                 text: "Title: " + postTitle + " Club/Organization: " + postClub + " Email: " + postEmail
                 + " Involvement: " + postInvolvement + " Position Type: " + positionType + " Club Type: "
