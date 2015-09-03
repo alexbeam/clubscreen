@@ -27,9 +27,9 @@ router.get('/newposting', function(req, res) {
 router.get('/posting/:id', function(req,res){
     var db = req.db;
     var collection = db.get('postingcollection');
-    collection.findOne({_id: req.collection.id(req.params.id)}, function(e, result){
+    collection.findOne({_id: req.params.id}, function(e, result){
         if (e) return next(e);
-        res.send(result)
+        res.render('posting', {post:result});
     })
 });
 
@@ -46,7 +46,7 @@ router.delete('/posting/:id', function(req, res) {
 router.post('/newapplicant', function(req,res){
     var db = req.db;
     var postEmail = req.body.email;
-    var mailList = 'antoninamalyarenko@gmail.com, alexbeam@umich.edu, ' + postEmail;
+    var mailList = 'antoninamalyarenko@gmail.com,alexbeam@umich.edu,' + postEmail;
 
     var mailOptions={
         to : mailList,
