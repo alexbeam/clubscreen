@@ -27,10 +27,10 @@ router.get('/newposting', function(req, res) {
 router.get('/posting/:id', function(req,res){
     var db = req.db;
     var collection = db.get('postingcollection');
-    console.log(req.params.id)
     collection.findOne({_id: req.params.id }, function(e, result){
         if (e) return next(e);
         res.render('posting', { post: result})
+
     })
 });
 
@@ -65,12 +65,23 @@ router.post('/newapplicant', function(req,res){
             text: "Name: " + postFirstName + " " + postLastName + " You applied for the "+ posting.title
         };
         console.log(mailOptions);
+
+        postCount= posting.received;
+        collection.update({_id:postID},{$set:{received: postCount +1}}, function(err, updated) {
+            if (err || !updated) console.log("Post not updated");
+            else console.log("Post updated");
+        });
+
         transporter.sendMail(mailOptions, function(error, response){
             if(error){
                 console.log(error);
                 res.end("error");
             }else{
                 console.log("Message sent: " + response.message);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0b06a199b955edf4727b8e0509e7108484cff670
                 // And forward to success page
                 res.redirect("postinglist");
             }
@@ -129,7 +140,7 @@ router.post('/addposting', function(req, res) {
         "created": created_format,
         "expireAt": expdate,
         "expires" : exp_format,
-        "received" : 0
+        "received": 0
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
