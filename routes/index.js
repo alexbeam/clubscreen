@@ -34,6 +34,21 @@ router.get('/posting/:id', function(req,res){
     })
 });
 
+/* GET filters */
+router.get('/postinglist/:involvement_type/:position_type/:club_type', function(req, res) {
+    var involvement_type = req.params.involvement_type
+    var position_type = req.params.position_type
+    var club_type = req.params.club_type
+
+    var db = req.db;
+    var collection = db.get('postinglist');
+    
+    collection.find({},{},function(e,docs){
+        res.json(docs);
+    });
+});
+
+
 /* DELETE Single Post from DB */
 router.delete('/posting/:id', function(req, res) {
     var db = req.db;
@@ -52,7 +67,6 @@ router.post('/newapplicant', function(req,res){
     var postPhone = req.body.phone;
     var postYear = req.body.year;
     var postID = req.body.id.toString();
-
     var collection = db.get('postingcollection');
 
     collection.findOne({_id: postID}, function(err, posting) {
@@ -63,7 +77,7 @@ router.post('/newapplicant', function(req,res){
         var mailOptions={
             to : mailList,
             subject : "New Post from ClubScreenWolverine- Please Read",
-            text: "Name: " + postFirstName + " " + postLastName + " You applied for the "+posting.title
+            text: "Name: " + postFirstName + " " + postLastName + " You applied for the "+ posting.title
         };
         console.log(mailOptions);
 
@@ -79,13 +93,11 @@ router.post('/newapplicant', function(req,res){
                 res.end("error");
             }else{
                 console.log("Message sent: " + response.message);
-
                 // And forward to success page
                 res.redirect("postinglist");
             }
         });
     });
-
 });
 
 /*--------Post Submission Data-----------------------------------------*/
@@ -116,14 +128,14 @@ router.post('/addposting', function(req, res) {
     var positionType = req.body.position_type;
     var clubType = req.body.club_type;
     var clubDescr = req.body.description;
-    var daysOnSite = req.body.days;
+    var daysOnSite = Number(req.body.days);
 
     // Set our collection
     var collection = db.get('postingcollection');
 
     //Timing
-    var expdate = new Date(new Date().setDate(new Date().getDate() + daysOnSite));
     var created = new Date();
+    var expdate = new Date(new Date().setDate(new Date().getDate() + daysOnSite));
     var created_format = (created.getMonth() + 1) + '/' + created.getDate() + '/' + (created.getYear()-100+2000);
     var exp_format = (expdate.getMonth() + 1) + '/' + expdate.getDate() + '/' + (expdate.getYear()-100+2000);
 
