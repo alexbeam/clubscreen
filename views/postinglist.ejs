@@ -10,49 +10,52 @@
 		  <div class="form-group row">
 		    <label for="select" class="col-xs-1 control-label">Filter:</label>
 	      <div class="col-xs-3">
-	        <select class="form-control" id="involvement">
-	          <option value="involvement_level" default selected>Involvement Level</option>
-	          <option>Club Positions</option>
-	          <option>Freelance Tasks</option>
-	        </select>
+	      	<form id="formFilter" name="filter" method="post" action="/postinglist">
+			  		<fieldset>
+		        <select class="form-control" id="involvement">
+		          <option value="involvement_level" default selected>Involvement Level</option>
+		          <option>Club Positions</option>
+		          <option>Freelance Tasks</option>
+		        </select>
+		      </div>
+		      <div class="col-xs-3">
+		        <select class="form-control" id="position_type">
+		          <option value="position_type" default selected>Position Type</option>
+		          <option>General Membership</option>
+		          <option>Coding/Web Design</option>
+		          <option>Graphic Design/Art</option>
+		          <option>Event Planning</option>
+		          <option>Fundraising/Treasury</option>
+		          <option>Marketing/Promotion</option>
+		          <option>Musical/Performance</option>
+		          <option>Manufacturing/Assembly</option>
+				        </select>
+		        </select>
+		      </div>
+		      <div class="col-xs-3">
+		        <select class="form-control" id="club_type">
+		        	<option value="club_type" default selected>Club Type</option>
+		          <option>Not Applicable</option>
+		          <option>Activism</option>
+		          <option>Creative Expression</option>
+		          <option>Cultural</option>
+		          <option>Nature/Sustainability</option>
+		          <option>Student Government</option>
+		          <option>Health and Wellness</option>
+		          <option>Religious/Spiritual</option>
+		          <option>Technology/Science</option>
+		          <option>Community Engagement</option>
+		          <option>Greek</option>
+		          <option>Academic</option>
+		          <option>Athletics</option>
+		          <option>Career Development</option>
+		          <option>Social</option>
+		        </select>
+		      </div>
+		      <div class="col-xs-2">
+			      <button type="submit" class="btn btn-primary" style="background-color: #00274c; color: #ffcb05;">GO</button>
 	      </div>
-	      <div class="col-xs-3">
-	        <select class="form-control" id="position_type">
-	          <option value="position_type" default selected>Position Type</option>
-	          <option>General Membership</option>
-	          <option>Coding/Web Design</option>
-	          <option>Graphic Design/Art</option>
-	          <option>Event Planning</option>
-	          <option>Fundraising/Treasury</option>
-	          <option>Marketing/Promotion</option>
-	          <option>Musical/Performance</option>
-	          <option>Manufacturing/Assembly</option>
-			        </select>
-	        </select>
-	      </div>
-	      <div class="col-xs-3">
-	        <select class="form-control" id="club_type">
-	        	<option value="club_type" default selected>Club Type</option>
-	          <option>Not Applicable</option>
-	          <option>Activism</option>
-	          <option>Creative Expression</option>
-	          <option>Cultural</option>
-	          <option>Nature/Sustainability</option>
-	          <option>Student Government</option>
-	          <option>Health and Wellness</option>
-	          <option>Religious/Spiritual</option>
-	          <option>Technology/Science</option>
-	          <option>Community Engagement</option>
-	          <option>Greek</option>
-	          <option>Academic</option>
-	          <option>Athletics</option>
-	          <option>Career Development</option>
-	          <option>Social</option>
-	        </select>
-	      </div>
-	      <div class="col-xs-2">
-		      <button type="submit" class="btn btn-primary" style="background-color: #00274c; color: #ffcb05;">GO</button>
-	      </div>
+	    </form>
 	    </div>
 			<hr>
 			<table class="table table-striped table-hover ">

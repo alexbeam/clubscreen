@@ -40,6 +40,11 @@ router.get('/postinglist/:involvement_type/:position_type/:club_type', function(
     var position_type = req.params.position_type
     var club_type = req.params.club_type
 
+    if involvement_type = "involvement_type"
+        var involvement = "involvement_type = all"
+    else 
+        var involvement = ''
+
     var db = req.db;
     var collection = db.get('postinglist');
     
