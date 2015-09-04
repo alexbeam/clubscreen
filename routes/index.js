@@ -101,15 +101,17 @@ router.get('/postinglist', function(req, res) {
 
 /* GET Postinglist filters */
 router.post('/postinglist', function(req, res) {
-    var involvement_type = req.params.involvement_type;
-    var position_type = req.params.position_type;
-    var club_type = req.params.club_type;
+    var involvement_type = req.body.involvement_type;
+    var position_type = req.body.position_type;
+    var club_type = req.body.club_type;
 
+    console.log(involvement_type, position_type, club_type);
 
     var db = req.db;
-    var collection = db.get('postinglist');
+    var collection = db.get('postingcollection');
 
-    collection.find({"involvement_type" : involvement_type, "position_type": position_type, "club_type" : club_type },{},function(e,docs){
+    collection.find({"involvement" : involvement_type, "position_type" : position_type, "club_type" : club_type},{},function(e,docs){
+        console.log(docs);
         res.render('postinglist', {postinglist: docs});
     });
 });
