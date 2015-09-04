@@ -116,7 +116,6 @@ router.post('/postinglist', function(req, res) {
 
 
 
-
 /* POST to Add Post to the Database */
 router.post('/addposting', function(req, res) {
 
