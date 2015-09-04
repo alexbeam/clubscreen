@@ -111,5 +111,14 @@
 			  </fieldset>
 			</form>
 		</div>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$("select").on("click", "option", function () {
+			    if ( 3 <= $(this).siblings(":selected").length ) {
+			        $(this).removeAttr("selected");
+			    }
+				});
+			});
+		</script>
 	</body>
 </html>

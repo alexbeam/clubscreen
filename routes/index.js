@@ -30,7 +30,6 @@ router.get('/posting/:id', function(req,res){
     collection.findOne({_id: req.params.id }, function(e, result){
         if (e) return next(e);
         res.render('posting', { post: result})
-
     })
 });
 
@@ -39,12 +38,6 @@ router.get('/postinglist/:involvement_type/:position_type/:club_type', function(
     var involvement_type = req.params.involvement_type
     var position_type = req.params.position_type
     var club_type = req.params.club_type
-
-    if involvement_type = "involvement_type"
-        var involvement = "involvement_type = all"
-    else 
-        var involvement = ''
-
     var db = req.db;
     var collection = db.get('postinglist');
     

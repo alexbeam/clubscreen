@@ -12,14 +12,14 @@
 	      <div class="col-xs-3">
 	      	<form id="formFilter" name="filter" method="post" action="/postinglist">
 			  		<fieldset>
-		        <select class="form-control" id="involvement">
+		        <select class="form-control" name="involvement_type">
 		          <option value="involvement_level" default selected>Involvement Level</option>
-		          <option>Club Positions</option>
-		          <option>Freelance Tasks</option>
+		          <option>Club Position</option>
+		          <option>Freelance Task</option>
 		        </select>
 		      </div>
 		      <div class="col-xs-3">
-		        <select class="form-control" id="position_type">
+		        <select multiple id="ms" class="form-control" name="position_type">
 		          <option value="position_type" default selected>Position Type</option>
 		          <option>General Membership</option>
 		          <option>Coding/Web Design</option>
@@ -33,7 +33,7 @@
 		        </select>
 		      </div>
 		      <div class="col-xs-3">
-		        <select class="form-control" id="club_type">
+		        <select multiple id="ms" class="form-control" name="club_type">
 		        	<option value="club_type" default selected>Club Type</option>
 		          <option>Not Applicable</option>
 		          <option>Activism</option>
