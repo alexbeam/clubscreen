@@ -34,6 +34,21 @@ router.get('/posting/:id', function(req,res){
     })
 });
 
+/* GET filters */
+router.get('/postinglist/:involvement_type/:position_type/:club_type', function(req, res) {
+    var involvement_type = req.params.involvement_type
+    var position_type = req.params.position_type
+    var club_type = req.params.club_type
+
+    var db = req.db;
+    var collection = db.get('postinglist');
+    
+    collection.find({},{},function(e,docs){
+        res.json(docs);
+    });
+});
+
+
 /* DELETE Single Post from DB */
 router.delete('/posting/:id', function(req, res) {
     var db = req.db;
@@ -78,10 +93,6 @@ router.post('/newapplicant', function(req,res){
                 res.end("error");
             }else{
                 console.log("Message sent: " + response.message);
-<<<<<<< HEAD
-=======
-
->>>>>>> 0b06a199b955edf4727b8e0509e7108484cff670
                 // And forward to success page
                 res.redirect("postinglist");
             }
