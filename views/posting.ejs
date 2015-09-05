@@ -12,8 +12,9 @@
       <div class="row">
         <div class="col-lg-6"><h1><%= post.title %></h1>
           <p class="lead"><%= post.club %></p>
-          Date Posted: <span class="badge" style="background-color: #00274c; color:#ffcb05;">6/8/2015</span><br>
-          Applicants Recieved: <span class="badge" style="background-color: #00274c; color:#ffcb05;">12</span><br><br>
+          Date Posted: <span class="badge" style="background-color: #00274c; color:#ffcb05;"><%= post.created %></span><br>
+          Expires: <span class="badge" style="background-color: #00274c; color:#ffcb05;"><%= post.expires %></span><br>
+          Applicants Recieved: <span class="badge" style="background-color: #00274c; color:#ffcb05;"><%= post.received %></span><br><br>
           <p><%= post.description %></p>
         </div>
       </div>

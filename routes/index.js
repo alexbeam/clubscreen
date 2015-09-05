@@ -57,7 +57,7 @@ router.post('/newapplicant', function(req,res){
     collection.findOne({_id: postID}, function(err, posting) {
         console.log(posting);
 
-        var mailList = 'antoninamalyarenko@gmail.com,alexbeam@umich.edu,' + postEmail;
+        var mailList = 'antoninamalyarenko@gmail.com,' + postEmail;
 
         var mailOptions={
             to : mailList,
@@ -152,6 +152,7 @@ router.post('/addposting', function(req, res) {
         "club_type" : clubType,
         "description" : clubDescr,
         "created": created_format,
+        "createdAt" : created,
         "expireAt": expdate,
         "expires" : exp_format,
         "received": 0
@@ -163,7 +164,7 @@ router.post('/addposting', function(req, res) {
         else {
             //send email
             var mailOptions={
-                to : 'alexbeam@umich.edu,' + postEmail,
+                to : postEmail,
                 subject : "New Post from ClubScreenWolverine- Please Read",
                 text: "Title: " + postTitle + " Club/Organization: " + postClub + " Email: " + postEmail
                 + " Involvement: " + postInvolvement + " Position Type: " + positionType + " Club Type: "

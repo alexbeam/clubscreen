@@ -3,6 +3,14 @@
 <head>
 	<title>Post</title>
 	<% include /partials/header %>
+	<link rel="stylesheet" href="/stylesheets/bootstrap-select.css">
+	<script src="/javascripts/bootstrap-select.js"></script>
+	<style type="text/css">
+	.btn {
+		text-transform: none;
+		font-weight: normal;
+	}
+	</style>
 </head>
 	<body>
 	  <% include /partials/navbar %>
@@ -41,7 +49,7 @@
 			    </div>
 			    <div class="form-group">
 			      <label for="select" class="col-lg-2 control-label">Is this a full-time club position or freelance task?</label>
-			      <div class="col-lg-2">
+			      <div class="col-lg-4">
 			        <select class="form-control" name="involvement">
 			          <option>Club Position</option>
 			          <option>Freelance Task</option>
@@ -50,8 +58,8 @@
 			    </div>
 			    <div class="form-group">
 			      <label for="select" class="col-lg-2 control-label">What type of position is this?</label>
-			      <div class="col-lg-2">
-			        <select multiple class="form-control" name="position_type">
+			      <div class="col-lg-4">
+			        <select multiple class="form-control" title="General Membership" name="position_type">
 			          <option>General Membership</option>
 			          <option>Coding/Web Design</option>
 			          <option>Graphic Design/Art</option>
@@ -65,8 +73,8 @@
 			    </div>
 			    <div class="form-group">
 			      <label for="select" class="col-lg-2 control-label">What type of club are you?</label>
-			      <div class="col-lg-2">
-			        <select multiple class="form-control" name="club_type">
+			      <div class="col-lg-4">
+			        <select multiple class="form-control" title="Not Applicable" name="club_type">
 			          <option>Not Applicable</option>
 			          <option>Activism</option>
 			          <option>Creative Expression</option>
@@ -87,7 +95,7 @@
 			    </div>
 			    <div class="form-group">
 			      <label for="select" class="col-lg-2 control-label">Days posted on the site?</label>
-			      <div class="col-lg-2">
+			      <div class="col-lg-4">
 			        <select class="form-control" name="days">
 			          <option>7</option>
 			          <option>14</option>
@@ -119,6 +127,9 @@
 			    }
 				});
 			});
+		</script>
+		<script>
+			$('select').selectpicker();
 		</script>
 	</body>
 </html>
