@@ -92,10 +92,11 @@ router.post('/newapplicant', function(req,res){
 router.get('/postinglist', function(req, res) {
     var db = req.db;
     var collection = db.get('postingcollection');
-    collection.find({},{},function(e,docs){
+
+    collection.find({ $query: {}, $orderby: { createdAt : -1 } } ,function(e,docs){
         res.render('postinglist', {
             "postinglist" : docs
-        });
+        })
     });
 });
 
@@ -110,7 +111,7 @@ router.post('/postinglist', function(req, res) {
     var db = req.db;
     var collection = db.get('postingcollection');
 
-    collection.find({"involvement" : involvement_type, "position_type" : position_type, "club_type" : club_type},{},function(e,docs){
+    collection.find({$query: {"involvement" : involvement_type, "position_type" : position_type, "club_type" : club_type}, $orderby: { createdAt : -1 } },function(e,docs){
         console.log(docs);
         res.render('postinglist', {postinglist: docs});
     });
@@ -153,6 +154,7 @@ router.post('/addposting', function(req, res) {
         "club_type" : clubType,
         "description" : clubDescr,
         "created": created_format,
+        "createdAt" : created,
         "expireAt": expdate,
         "expires" : exp_format,
         "received": 0
