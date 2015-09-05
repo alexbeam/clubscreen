@@ -105,30 +105,25 @@ router.post('/postinglist', function(req, res) {
     var position_type = req.body.position_type;
     var club_type = req.body.club_type;
 
-    console.log(involvement_type, position_type, club_type);
-
     if (involvement_type == "") {
-        var inv = ""}
-    else {
-        var inv = "involvement" : involvement_type }
+        involvement_type = {$in : ['Freelance Task', 'Club Position']}
+    }
+    if (position_type == undefined) {
+        position_type = {$in : ['General Membership', 'Coding/Web Design', 'Graphic Design/Art', 'Event Planning', 'Fundraising/Treasury', 'Marketing/Promotion', 'Musical/Performance', 'Manufacturing/Assembly']}
+    }
+    if (club_type == undefined) {
+        club_type = {$in : ['Not Applicable', 'Activism', 'Creative Expression', 'Cultural', 'Nature/Sustainability', 'Student Government', 'Health and Wellness', 'Religious/Spiritual', 'Technology/Science', 'Community Engagement', 'Greek', 'Academic', 'Athletics', 'Career Development', 'Social']}
+    }
 
-    if (position_type == "") {
-        var pos = ""}
-    else {
-        var pos = "position_type" : position_type }
-
-    if (club_type == "") {
-        var club = ""}
-    else {
-        var club = "club_type" : club_type }
-
-    var q = inv + pos + club
-    console.log(q)
+    console.log(involvement_type, position_type, club_type);
 
     var db = req.db;
     var collection = db.get('postingcollection');
 
-    collection.find({$query: {}, $orderby: { createdAt : -1 } },function(e,docs){
+    collection.find({$query: {
+            "involvement" : involvement_type, 
+            "position_type" : position_type, 
+            "club_type" : club_type}, $orderby: { createdAt : -1 } },function(e,docs){
         console.log(docs);
         res.render('postinglist', {postinglist: docs});
     });
