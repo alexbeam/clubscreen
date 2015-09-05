@@ -107,10 +107,28 @@ router.post('/postinglist', function(req, res) {
 
     console.log(involvement_type, position_type, club_type);
 
+    if (involvement_type == "") {
+        var inv = ""}
+    else {
+        var inv = "involvement" : involvement_type }
+
+    if (position_type == "") {
+        var pos = ""}
+    else {
+        var pos = "position_type" : position_type }
+
+    if (club_type == "") {
+        var club = ""}
+    else {
+        var club = "club_type" : club_type }
+
+    var q = inv + pos + club
+    console.log(q)
+
     var db = req.db;
     var collection = db.get('postingcollection');
 
-    collection.find({$query: {"involvement" : involvement_type, "position_type" : position_type, "club_type" : club_type}, $orderby: { createdAt : -1 } },function(e,docs){
+    collection.find({$query: {}, $orderby: { createdAt : -1 } },function(e,docs){
         console.log(docs);
         res.render('postinglist', {postinglist: docs});
     });
