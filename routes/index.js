@@ -109,10 +109,15 @@ router.post('/postinglist', function(req, res) {
         involvement_type = {$in : ['Freelance Task', 'Club Position']}
     }
     if (position_type == undefined) {
-        position_type = {$in : ['General Membership', 'Coding/Web Design', 'Graphic Design/Art', 'Event Planning', 'Fundraising/Treasury', 'Marketing/Promotion', 'Musical/Performance', 'Manufacturing/Assembly']}
+        position_type = {$in : ['General Membership', 'Coding/Web Design', 'Graphic Design/Art',
+                                'Event Planning', 'Fundraising/Treasury', 'Marketing/Promotion',
+                                'Musical/Performance', 'Manufacturing/Assembly']}
     }
     if (club_type == undefined) {
-        club_type = {$in : ['Not Applicable', 'Activism', 'Creative Expression', 'Cultural', 'Nature/Sustainability', 'Student Government', 'Health and Wellness', 'Religious/Spiritual', 'Technology/Science', 'Community Engagement', 'Greek', 'Academic', 'Athletics', 'Career Development', 'Social']}
+        club_type = {$in : ['Not Applicable', 'Activism', 'Creative Expression',
+                            'Cultural', 'Nature/Sustainability', 'Student Government',
+                            'Health and Wellness', 'Religious/Spiritual', 'Technology/Science',
+                            'Community Engagement', 'Greek', 'Academic', 'Athletics', 'Career Development', 'Social']}
     }
 
     console.log(involvement_type, position_type, club_type);
