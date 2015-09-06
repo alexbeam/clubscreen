@@ -325,25 +325,26 @@ nav a#pull {
 	background-position: 2px -159px;
 }
 a.leran-more{
-	background:#FFFFFF;
-	color:#222222;
+	background:#00274c;
+	color:#ffcb05;
 	font-weight:500;
 	text-transform:uppercase;
 	text-decoration:none;
 	font-weight:600;
 	padding:0.9em 2em; 
 	display:inline-block;
-	font-size:1.1em;
+	font-size:2em;
 	border-radius: 3em;
 	-webkit-border-radius: 3em;
 	-moz-border-radius: 3em;
 	-ms-border-radius: 3em;
 	-o-border-radius: 3em;
-	border:1px solid #CBEEFA;
+	border:2px solid #ffcb05;
 }
 a.leran-more:hover{
-	background:#222222;
-	color:#FFFFFF;
+	background:#ffcb05;
+	color:#00274c;
+	
 }
 .expertice-left-grid{
 	padding:3em 3em 3em 5em;
