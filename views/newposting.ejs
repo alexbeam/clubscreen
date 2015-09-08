@@ -18,24 +18,23 @@
 		  <a href="/postinglist" style="color: #00274c;"><h5>< Back</h5></a>
 		  <hr>
 		  <div class="row">
-		    <div class="col-lg-6"><h1>Create a new posting</h1>
-		      <p class="lead">Tell us what your club is looking for.</p>
+		    <div class="col-lg-6"><h1>Create a New Posting</h1>
+		      <p class="lead">What's your organization looking for?</p>
 		    </div>
 		  </div>
 		  <hr>
 			<form class="form-horizontal" id="formAddPosting" name="addposting" method="post" action="/addposting">
 			  <fieldset>
 			    <div class="form-group">
-			      <label for="inputTitle" class="col-lg-2 control-label">Position Title</label>
+			      <label for="inputTitle" class="col-lg-2 control-label">Postition Title</label>
 			      <div class="col-lg-4">
-			        <input type="text" class="form-control" placeholder="Title" name="title"/>
-			        <span class="help-block">We find that posting strong resume positions increases the number of applicants received.</span>
+			        <input type="text" class="form-control" placeholder="Men's Glee Club- Lead Singer" name="title">
 			      </div>
 			    </div>
 			    <div class="form-group">
 			      <label for="inputOrg" class="col-lg-2 control-label">Organization/Club</label>
 			      <div class="col-lg-4">
-			          <input type="text" class="form-control" placeholder="Club" name="club"/>
+			          <input type="text" class="form-control" placeholder="Alpha Epsilon Delta Pre-Med Fraternity" name="club"/>
 			      </div>
 			    </div>
 			    <div class="form-group">
@@ -48,7 +47,7 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="select" class="col-lg-2 control-label">Is this a full-time club position or freelance task?</label>
+			      <label for="select" class="col-lg-2 control-label">Is this a full-time club position or a freelance task?</label>
 			      <div class="col-lg-4">
 			        <select class="form-control" name="involvement">
 			          <option>Club Position</option>
@@ -57,7 +56,7 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="select" class="col-lg-2 control-label">What type of position is this?</label>
+			      <label for="select" class="col-lg-2 control-label">How would you best categorize the posting?</label>
 			      <div class="col-lg-4">
 			        <select multiple class="form-control" title="General Membership" name="position_type">
 			          <option>General Membership</option>
@@ -72,7 +71,7 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="select" class="col-lg-2 control-label">What type of club are you?</label>
+			      <label for="select" class="col-lg-2 control-label">What type of organization are you posting for?</label>
 			      <div class="col-lg-4">
 			        <select multiple class="form-control" title="Not Applicable" name="club_type">
 			          <option>Not Applicable</option>
@@ -94,7 +93,7 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="select" class="col-lg-2 control-label">Days posted on the site?</label>
+			      <label for="select" class="col-lg-2 control-label">How many days before this posting expires?</label>
 			      <div class="col-lg-4">
 			        <select class="form-control" name="days">
 			          <option>7</option>
@@ -104,10 +103,10 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="textArea" class="col-lg-2 control-label" >A short description of the position</label>
+			      <label for="textArea" class="col-lg-2 control-label" >Please provide a short description of the position:</label>
 			      <div class="col-lg-8">
 			        <textarea class="form-control" rows="4" name="description" id="textArea"></textarea>
-			        <span class="help-block">A confirmation email will be sent to your contact email before this post goes live.</span>
+			        <span class="help-block">A confirmation email will be sent to the email you provided.</span>
 			      </div>
 			    </div>
 			    <div class="form-group">

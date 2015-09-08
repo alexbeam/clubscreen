@@ -3,9 +3,19 @@ var router = express.Router();
 var nodemailer = require('nodemailer');
 var mongoskin = require('mongoskin');
 
-/* GET home page. */
+/* GET Home Page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
+});
+
+/* GET Calendar Page-Placeholder */
+router.get('/calendar', function(req, res, next) {
+    res.render('calendar', { title: 'Placeholder' });
+});
+
+/* GET Resources- Placeholder */
+router.get('/resources', function(req, res, next) {
+    res.render('resources', { title: 'Placeholder' });
 });
 
 /* Configure SMTP server details with Gmail*/
@@ -85,7 +95,7 @@ router.post('/newapplicant', function(req,res){
     });
 });
 
-/*--------Post Submission Data-----------------------------------------*/
+/*--------Posting Submission Data-----------------------------------------*/
 
 /* GET Postinglist page. */
 router.get('/postinglist', function(req, res) {
