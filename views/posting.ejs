@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Posting</title>
+  <title><%= post.title %></title>
   <% include /partials/header %>
 </head>
   <body>
@@ -69,12 +69,97 @@
             </div>
           <div class="form-group">
             <div class="col-lg-10 col-lg-offset-2">
-              <button onclick="window.location.href='/postinglist'" class="btn btn-default">Cancel</button>
-              <button type="submit" class="btn btn-primary" style="background-color: #00274c; color: #ffcb05;">Submit</button>
+              <button type="submit" id="register" class="btn btn-primary" style="background-color: #00274c; color: #ffcb05;">Submit</button>
+              <a href="/postinglist" class="btn btn-default">Cancel</a>
             </div>
           </div>
         </fieldset>
       </form>
     </div>
+    <script>
+      $( document ).ready(function() {
+          var empty = false;
+        $('form input').each(function() {
+            if ($(this).val() == '') {
+                empty = true;
+            }
+        });
+
+        $('form textarea' ).each(function() {
+              if ($(this).val() == '') {
+                  empty = true;
+              }
+          });
+
+          if (empty) {
+              $('#register').addClass('disabled');
+              $('#register').attr('disabled', 'disabled');
+              $('#register').prop('disabled', true);
+               // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+          }
+      });
+
+      $('form input').keyup(function() {
+
+        var empty = false;
+        $('form input' ).each(function() {
+            if ($(this).val() == '') {
+                empty = true;
+            }
+        });
+
+        $('form textarea' ).each(function() {
+            if ($(this).val() == '') {
+                empty = true;
+            }
+        });
+
+        if (empty) {
+            $('#register').addClass('disabled');
+            $('#register').attr('disabled', 'disabled');
+            $('#register').prop('disabled', true); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+        } else {
+            $('#register').removeClass('disabled'); 
+            $('#register').removeAttr('disabled', 'disabled');
+            $('#register').removeProp('disabled', true);
+            // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+        }
+      });
+
+      $('form textarea').keyup(function() {
+
+        var empty = false;
+        $('form input' ).each(function() {
+            if ($(this).val() == '') {
+                empty = true;
+            }
+        });
+
+        $('form textarea' ).each(function() {
+            if ($(this).val() == '') {
+                empty = true;
+            }
+        });
+
+        if (empty) {
+            $('#register').addClass('disabled');
+            $('#register').attr('disabled', 'disabled');
+            $('#register').prop('disabled', true);
+             // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+        } else {
+            $('#register').removeClass('disabled');
+            $('#register').removeAttr('disabled', 'disabled');
+            $('#register').removeProp('disabled', true);
+             // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+        }
+      });
+      $('form input').on('keyup keypress', function(e) {
+            var code = e.keyCode || e.which;
+            if (code == 13) { 
+              e.preventDefault();
+              return false;
+            }
+      });
+    </script>
   </body>
 </html>

@@ -23,7 +23,7 @@ body a{
 }
 /*-----start-header----*/
 .bg{
-	background:url(../../images/baner.png) no-repeat 0px 0px;
+	background:url(../../images/banner.png) no-repeat 0px 0px;
 	background-size:cover;
 }
 .header{
@@ -194,7 +194,7 @@ nav a#pull {
 .banner-info span{
 	width:15%;
 	height:1px;
-	background:#35C2F8;
+	background:#00274c;
 	display:inline-block;
 }
 .banner-info p{
@@ -219,7 +219,7 @@ nav a#pull {
 .service-head span{
 	width:15%;
 	height:1px;
-	background:#35C2F8;
+	background:#00274c;
 	display:inline-block;
 }
 .service-grid span{
@@ -228,6 +228,7 @@ nav a#pull {
 	display:inline-block;
 	background:url(../../images/services-icons.png) no-repeat 0px 0px;
 }
+
 .service-grid h3 a{
 	color: #222;
 	font-weight: 600;
@@ -242,7 +243,7 @@ nav a#pull {
 	font-weight:400;
 	font-family: 'Open Sans', sans-serif;
 	line-height:1.7em;
-	color:#888888;
+	color:#111;
 }
 .service-grid span.service-icon1{
 	background-position:0px 0px;
@@ -333,7 +334,7 @@ a.leran-more{
 	font-weight:600;
 	padding:0.9em 2em; 
 	display:inline-block;
-	font-size:2em;
+	font-size:1.7em;
 	border-radius: 3em;
 	-webkit-border-radius: 3em;
 	-moz-border-radius: 3em;
@@ -589,10 +590,10 @@ a.leran-more:hover{
 	font-size: 0.93em;
 }
 .cbp_tmlabel p{
-	color: #777777;
+	color: #111;
 	line-height: 1.6em;
 	font-family: 'Open Sans', sans-serif;
-	font-size: 0.72em;
+	font-size: 1em;
 	margin-top: 0.8em;
 }
 /*--//about-time-line--*/
