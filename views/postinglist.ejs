@@ -60,9 +60,9 @@
 			<table class="table table-striped table-hover ">
 			  <thead>
 			    <tr>
-			      <th>Position:</th>
 			      <th>Date Posted:</th>
-			      <th>Position Type(s):</th>
+			      <th>Position:</th>
+			      <!-- <th>Position Type(s):</th> -->
 			      <th></th>
 			    </tr>
 			  </thead>
@@ -70,18 +70,18 @@
 			  	<% for(var post=0; post<postinglist.length; post++) { %>
 				    <tr>
 				      <td>
-				      	<h4><a href="/posting/<%= postinglist[post]._id %>" style="color: #00274c; text-decoration: underline;">
-					      <%= postinglist[post].title %></a>
-					 	  	</h4><%= postinglist[post].club %><br>Applicants Received: <%= postinglist[post].received %>
-					 	  </td>
-				      <td>
 				      	<%= postinglist[post].created %><br>
 				      </td>
 				      <td>
-				      	<%= postinglist[post].club_type %>
-				      </td>
+				      	<h4><a href="/posting/<%= postinglist[post]._id %>" style="color: #00274c; text-decoration: underline;">
+					      <%= postinglist[post].title %></a>
+					 	  	</h4><%= postinglist[post].club %><br>Applicants Received: <%= postinglist[post].received %>
+					  </td>
+				    <!--   <td>
+				      	<%= postinglist[post].position_type %>
+				      </td> -->
 				      <td>
-				      	<button onclick="window.location.href='/posting/<%= postinglist[post]._id %>'" class="btn btn-block btn-primary" style="background-color: #00274c; color: #ffcb05;">Apply</button>
+				      	<button onclick="window.location.href='/posting/<%= postinglist[post]._id %>'" class="btn btn-block btn-primary" style="background-color: #00274c; color: #ffcb05; height: 60px;">Apply</button>
 				      </td>
 				    </tr>
 			    <% } %>
