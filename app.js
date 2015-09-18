@@ -22,7 +22,7 @@ var app = express();
 
 app.set('port', (process.env.PORT || 5000));
 
-app.listen(port, function() {
+app.listen(app.get('port'), function() {
     console.log('Our app is running on' + app.get('port'));
 });
 
