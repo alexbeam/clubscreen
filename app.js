@@ -15,20 +15,6 @@ mongodb.MongoClient.connect(uri, function(err, udb) {
   if(err) throw err;
   var db = udb;
   var coll = db.collection.insert('postingcollection');
-  coll.insert(
-      {"title" : "Hello",
-      "club" : "Alex",
-      "email" : "alexbeam@umich.edu",
-      "involvement" : "Club Position",
-      "position_type" : "Coding/Web Design",
-      "club_type" : "Academic",
-      "description" : "Hello This is a test",
-      "created" : "9/10/2015",
-      "createdAt" : ISODate("2015-09-10T20:41:51.625Z"),
-      "expireAt" : ISODate("2015-09-24T20:41:51.625Z"),
-      "expires" : "9/24/2015",
-      "received" : 3}
-    )
 });
 
 var routes = require('./routes/index');
