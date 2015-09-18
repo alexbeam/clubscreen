@@ -13,7 +13,6 @@ var uri = 'mongodb://heroku_63wvdhmw:avdcnm2j5u6os89j2g46m6iugt@ds049548.mongola
 
 mongodb.MongoClient.connect(uri, function(err, udb) {
   if(err) throw err;
-  udb.collection.insert('postingcollection');
   var db = udb;
 });
 
