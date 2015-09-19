@@ -37,9 +37,18 @@ router.get('/newposting', function(req, res) {
 router.get('/posting/:id', function(req,res){
     var db = req.db;
     var collection = db.get('postingcollection');
+
     collection.findOne({_id: req.params.id }, function(e, result){
-        if (e) return next(e);
-        res.render('posting', { post: result})
+        if(e) return next(e)
+
+        else {
+            if (result.active == false) {
+            collection.update({_id : req.params.id}, {$set : {"active" : true}})
+            res.render('posting', { post: result})    
+        }
+        else
+            res.render('posting', { post: result})
+        };
     })
 });
 
@@ -56,23 +65,26 @@ router.delete('/posting/:id', function(req, res) {
 
 router.post('/newapplicant', function(req,res){
     var db = req.db;
-    var postFirstName = req.body.first;
-    var postLastName = req.body.last;
-    var postEmail = req.body.email;
-    var postPhone = req.body.phone;
-    var postYear = req.body.year;
+    var applicantFirstName = req.body.first;
+    var applicantLastName = req.body.last;
+    var applicantEmail = req.body.email + '@umich.edu';
+    var applicantPhone = req.body.phone;
+    var applicantYear = req.body.year;
     var postID = req.body.id.toString();
     var collection = db.get('postingcollection');
+
+    console.log(applicantEmail);
 
     collection.findOne({_id: postID}, function(err, posting) {
         console.log(posting);
 
-        var mailList = 'antoninamalyarenko@gmail.com,' + postEmail;
+        var mailList = 'antoninamalyarenko@gmail.com,' + posting.email + ',' + applicantEmail;
 
         var mailOptions={
             to : mailList,
-            subject : "New Post from ClubScreenWolverine- Please Read",
-            text: "Name: " + postFirstName + " " + postLastName + " You applied for the "+ posting.title
+            subject : "New Post from uCLUBS - Please Read",
+            text: "Name: " + applicantFirstName + " " + applicantLastName + " You applied for "+ posting.title,
+            html: ""
         };
         console.log(mailOptions);
 
@@ -102,7 +114,7 @@ router.get('/postinglist', function(req, res) {
     var db = req.db;
     var collection = db.get('postingcollection');
 
-    collection.find({ $query: {}, $orderby: { createdAt : -1 } } ,function(e,docs){
+    collection.find({ $query: {"active" : true}, $orderby: { createdAt : -1 } } ,function(e,docs){
         res.render('postinglist', {
             "postinglist" : docs
         })
@@ -135,12 +147,15 @@ router.post('/postinglist', function(req, res) {
     var db = req.db;
     var collection = db.get('postingcollection');
 
+    var filters = [involvement_type, position_type, club_type]
+
     collection.find({$query: {
+            "active" : true,
             "involvement" : involvement_type, 
             "position_type" : position_type, 
             "club_type" : club_type}, $orderby: { createdAt : -1 } },function(e,docs){
         console.log(docs);
-        res.render('postinglist', {postinglist: docs});
+        res.render('postinglist', {postinglist: docs})
     });
 });
 
@@ -177,14 +192,15 @@ router.post('/addposting', function(req, res) {
         "club" : postClub,
         "email" : postEmail,
         "involvement" : postInvolvement,
-        "position_type" : positionType,
-        "club_type" : clubType,
+        "position_type" : Array(positionType),
+        "club_type" : Array(clubType),
         "description" : clubDescr,
         "created": created_format,
         "createdAt" : created,
         "expireAt": expdate,
         "expires" : exp_format,
-        "received": 0
+        "received": 0,
+        "active": false
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
@@ -194,10 +210,11 @@ router.post('/addposting', function(req, res) {
             //send email
             var mailOptions={
                 to : postEmail,
-                subject : "New Post from ClubScreenWolverine- Please Read",
-                text: "Title: " + postTitle + " Club/Organization: " + postClub + " Email: " + postEmail
-                + " Involvement: " + postInvolvement + " Position Type: " + positionType + " Club Type: "
-                + clubType + " Club Description: " + clubDescr
+                subject : "New Post from uCLUBS- Please Read",
+                // text: "Title: " + postTitle + " Club/Organization: " + postClub + " Email: " + postEmail
+                // + " Involvement: " + postInvolvement + " Position Type: " + positionType + " Club Type: "
+                // + clubType + " Club Description: " + clubDescr + " Please activate post by visiting: localhost:3000/posting/" + doc._id,
+                html: "<h1>Welcome to uCLUBS!</h1><p>Thank you for submitting a posting, follow this link to activate your posting: </p>" + "<a href='http://localhost:3000/posting/" + doc._id + "'>localhost:3000/posting/"+doc._id+"</a>",
             };
             console.log(mailOptions);
             transporter.sendMail(mailOptions, function(error, response){
