@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Home</title>
+	<title>Posting List</title>
 	<% include /partials/header %>
 	<link rel="stylesheet" href="/stylesheets/bootstrap-select.css">
 	<script src="/javascripts/bootstrap-select.js"></script>
@@ -60,9 +60,9 @@
 			<table class="table table-striped table-hover ">
 			  <thead>
 			    <tr>
-			      <th>ID #</th>
 			      <th>Position:</th>
 			      <th>Date Posted:</th>
+			      <th>Position Type(s):</th>
 			      <th></th>
 			    </tr>
 			  </thead>
@@ -70,15 +70,15 @@
 			  	<% for(var post=0; post<postinglist.length; post++) { %>
 				    <tr>
 				      <td>
-				      	<h5><%= postinglist[post]._id %></h5>
-				      </td>
-				      <td>
 				      	<h4><a href="/posting/<%= postinglist[post]._id %>" style="color: #00274c; text-decoration: underline;">
 					      <%= postinglist[post].title %></a>
 					 	  	</h4><%= postinglist[post].club %><br>Applicants Received: <%= postinglist[post].received %>
 					 	  </td>
 				      <td>
 				      	<%= postinglist[post].created %><br>
+				      </td>
+				      <td>
+				      	<%= postinglist[post].club_type %>
 				      </td>
 				      <td>
 				      	<button onclick="window.location.href='/posting/<%= postinglist[post]._id %>'" class="btn btn-block btn-primary" style="background-color: #00274c; color: #ffcb05;">Apply</button>

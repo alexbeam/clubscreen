@@ -7,19 +7,19 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Club Screen</title>
+		<title>uCLUBS</title>
 		<link href="stylesheets/css/bootstrap.css" rel='stylesheet' type='text/css' />
 		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 		<script src="javascripts/js/jquery.min.js"></script>
 		 <!-- Custom Theme files -->
-		 <!---- animated-css ---->
+		 <!-- animated-css -->
 		<link href="stylesheets/css/animate.css" rel="stylesheet" type="text/css" media="all">
 		<script src="javascripts/js/wow.min.js"></script>
 		<script>
 		 new WOW().init();
 		</script>
-		<!---- animated-css ---->
-		  <!---- start-smoth-scrolling---->
+		<!-- animated-css -->
+		  <!-- start-smoth-scrolling-->
 		<script type="text/javascript" src="javascripts/js/move-top.js"></script>
 		<script type="text/javascript" src="javascripts/js/easing.js"></script>
 		<script type="text/javascript">
@@ -30,17 +30,17 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				});
 			});
 		</script>
-		 <!---- start-smooth-scrolling---->
+		 <!-- start-smooth-scrolling -->
 		<link href="stylesheets/css/style.css" rel='stylesheet' type='text/css' />
    		 <!-- Custom Theme files -->
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 		</script>
-		<!----webfonts--->
+		<!-- webfonts -->
 		<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
-		<!---//webfonts--->
-		<!----start-top-nav-script---->
+		<!-- //webfonts -->
+		<!-- start-top-nav-script -->
 		<script>
 			$(function() {
 				var pull 		= $('#pull');
@@ -66,49 +66,75 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div id="home" class="header wow bounceInDown" data-wow-delay="0.4s">
 					<div class="top-header">
 						<div class="container">
-						<div class="logo">
-							<!-- <a href="#"><img src="images/logo.png" title="dreams" /></a> -->
-						</div>
-						<!----start-top-nav---->
+						<!-- start-top-nav -->
 						 <nav class="top-nav">
 							<ul class="top-nav">
 								<li><a href="#services" class="scroll">About</a></li>
+								<li><a href="/resources">Club Resources</a></li>
 								<li><a href="/calendar">Calendar</a></li>
 							</ul>
 							<a href="#" id="pull"><img src="images/menu-icon.png" title="menu" /></a>
 						</nav>
+						<div class="logo">
+							<br><br><a href="#"><img src="images/logo.png" title="dreams" /></a>
+						</div>
 						<div class="clearfix"> </div>
 					</div>
 				</div>
 			</div>
 			<!-- //End-header -->
-
 			<!-- banner -->
 			<div class="banner wow fadeIn" data-wow-delay="0.5s">
 				<div class="container">
 					<div class="banner-info text-center">
-						<h3 style="color: #FFFFFF; font-size: 60px;">Welcome to Club Screen Wolverine</h3>
-                        <br><br><br><br>
-						<a class="leran-more" href="/newposting">Create Posting</a>&nbsp&nbsp&nbsp
-						<a class="leran-more" href="/postinglist">View Postings</a><br><br>
+						<!-- <h3 style="font-size: 60px; text-align: left;">Welcome to Club Screen Wolverine</h3> -->
+                        <br><br><br><br><br><br><br><br><br><br>
+						<a class="leran-more" href="/newposting" target="_blank">Create Posting</a>&nbsp&nbsp&nbsp
+						<a class="leran-more" href="/postinglist" target="_blank">View Postings</a><br><br>
+						<br><br><br><br><br><br>
 						<div class="pull-right">
-							<img style="width: 250px;" src="images/enactus.png">
 							<img style="width: 150px;" src="images/csg.png">
+							<img style="width: 250px; background-color:#00274c; border-radius:14px;" src="images/enactus.png">
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-			<!-- banner -->
-			<div id="services" class="services">
-				<div class="container">
-					<div class="service-head text-center">
-						<h2></h2>
-						<span> </span>
-						<br><br>
+		<!-- services-grids -->
+		<div id="services" class="services">
+			<div class="container">
+				<div class="service-head text-center">
+					<h2>What is uCLUBS?</h2>
+					<span> </span><br><br>
+					<p>uCLUBS was designed in response to the growing demand for the individualized web presence of organizations on campus. This app was built for students, by students. It's a more efficient way to ask for help, volunteer, and make the most of our time here at Michigan.</p>
+				</div>
+				<!-- services-grids -->
+				<div class="services-grids text-center">
+					<div class="col-md-4">
+						<div class="service-grid wow bounceIn animated" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: bounceIn;">
+							<span class="service-icon1"> </span>
+							<h3>Clubs: <br><a href="#step1" class="scroll">Post and be seen</a></h3>
+							<p>Specify the skills your organization is looking for. <!-- Is it officer election time? Do you need a math tutor, or is Glee Club searching for new talent? --> Now you can scrap those emailing lists and <a href="/newposting" target="_blank">create a new posting!</a></p>
+						</div>
 					</div>
-					<!-- services-grids -->
-					<div class="expertise-head">
+					<div class="col-md-4">
+						<div class="service-grid wow bounceIn animated" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: bounceIn;">
+							<span class="service-icon2"> </span>
+							<h3>Students: <br><a href="#step2" class="scroll">Apply and connect</a></h3>
+							<p><a href="/postinglist" target="_blank">View club postings</a> and apply right from this site. <!-- Don't worry if you missed Festifall or forget to sign up for a mass meeting, you can still get in touch with that club/fraternity/research group you've been searching for. --> It's okay if you missed Festifall.</p>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="service-grid wow bounceIn animated" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: bounceIn;">
+							<span class="service-icon3"> </span>
+							<h3>Everyone: <br><a href="">Get involved</a></h3>
+							<p><!-- We hope to foster a better extracurricular experience here at UMich.  -->Students and clubs will spend less time recruiting, find a better fit, and get more involved.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+					<!-- <div class="expertise-head">
 							<p> </p>
 						</div>
 						<div class="expertise-left-inner-grids">
@@ -119,9 +145,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								<div class="e-left-inner-grid-right">
 									<h4>Custom Setup</h4>
 
-									<p>We designed this in response to the growing demand for individualized web customization for organizations
-									on campus. This app was built for students, by students. It's a more efficient way for us to ask for help, volunteer,
-									and make the most of our numbered days here at Michigan. </p>
+									<p>Club Screen was designed in response to the growing demand for individualized web customization for organizations
+									on campus. This app was built for students, by students. It's a more efficient way to ask for help, volunteer,
+									and make the most of our time here at Michigan. </p>
 								</div>
 								<div class="clearfix"> </div>
 							</div>
@@ -163,61 +189,60 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							</div>
 							<div class="clearfix"> </div>
 						</div>
-					</div>
-					<!--- services-grids -->
-				</div>
-			</div>
-			<!--- services -->
+					</div> -->
+					<!-- services-grids -->
 
-			<!---start-about---->
+			<!-- start-about -->
 		<div class="about">
 			<div class="wrap"> 
 				<div class="about-head">
 					<h1>How it works</h1>
 					<span> </span>
 				</div>
-				<!---start-about-time-line---->
+				<!-- start-about-time-line -->
 				<div class="about-time-line">
 					<li>
-							<div class="cbp_tmicon img1"> </div>
+						<div id="step1" class="cbp_tmicon img1"> </div>
 							<div class="cbp_tmlabel wow fadeInLeft" data-wow-delay="0.4s">
-								<h2>Get Involved</h2>
-								<p>The Central Campus Student Government and Enactus have set this up as an alternative to long hours of mass meetings after
+								<h2>Clubs create a posting</h2>
+								<p><!-- The Central Campus Student Government and Enactus have set this up as an alternative to long hours of mass meetings after
                                 traditional org gatherings, and it's enabling a much faster, modern approach to campus involvement. We're using a simple email
-                                protocol that keeps track of applicants and puts you directly in touch with whatever you've envisioned.</p>
-							</div>
+                                protocol that keeps track of applicants and puts you directly in touch with whatever you've envisioned. -->
+                                Visit the <a href="/newposting" target="_blank">create new posting page</a> and fill out the form describing the club postition. Check your UMich gmail and follow the link to activate your posting. Now your post is live and you will begin receiving emails from applicants!
+                            	</p>
+						</div>
 					</li>
 					<li>
-							<div class="cbp_tmicon1 img2"> </div>
+						<div id="step2" class="cbp_tmicon1 img2"> </div>
 							<div class="cbp_tmlabel cbp_tmlabel1 wow fadeInRight" data-wow-delay="0.4s">
-								<h2>Resume Building</h2>
-								<p>We think this is a great way to get involved with organizations, learn more about specific clubs at Michigan
+								<h2>Students browse postings</h2>
+								<p><!-- We think this is a great way to get involved with organizations, learn more about specific clubs at Michigan
                                     and apply directly to active postings you might be interested in, but one of the best perks is resume building!
                                 If you've been wanting to add web development or leadership experiences to your resume for a while, there's never been
-                                a better way to find them.</p>
+                                a better way to find them. -->
+                                On the <a href="/postinglist" target="_blank">posting list page</a> you will find club positions to apply to. Sort the positions by different filter categories to find a perfect match. Simply click the apply button to see a detailed description of the posting.
+                            	</p>
 							</div>
 					</li><br />
 					<li>
 							<div class="cbp_tmicon2 img3"> </div>
 							<div class="cbp_tmlabel wow fadeInLeft" data-wow-delay="0.4s">
-								<h2>Scaling Up</h2>
-								<p>If you're interested in working with this app in the future, we'll scale it up to eventually include user authentication
-                                and more streamlined design over the next few months. Contact fburczak@umich.edu with questions about scaling up!</p>
+								<h2>Applicants send their info</h2>
+								<p><!-- If you're interested in working with this app in the future, we'll scale it up to eventually include user authentication
+                                and more streamlined design over the next few months. Contact fburczak@umich.edu with questions about scaling up! -->
+                                If you want to apply to the position, fill out the form with your umich uniquename and add a short paragraph on why you're a good fit. That's it! Your application will be sent.
+                            	</p>
 							</div>
 					</li>
 					<li>
 							<div class="cbp_tmicon3 img4"> </div>
 							<div class="cbp_tmlabel cbp_tmlabel1 wow fadeInRight" data-wow-delay="0.4s">
-								<h2>We know you'll love it</h2>
-								<p>But- we want to hear from you, so we've made a poll for your feedback. Here's the link:Please contact fburczak@umich.edu with complaints. All other requests can go to csg.info@umich.edu!</p>
+								<h2>Students and clubs connect via UMich gmail</h2>
+								<p><!-- But- we want to hear from you, so we've made a poll for your feedback. Here's the link:Please contact fburczak@umich.edu with complaints. All other requests can go to csg.info@umich.edu! -->
+								At this point, uCLUBS has played its part. The club and student can communicate via UMich gmail. Maybe there is a more in depth application or interview process. Figure out the details on your own – we're just here to make the initial match!</p>
 							</div>
 					</li>
-					<li>
-							<div class="cbp_tmicon4 img5"> </div>
-					</li>
-					<div class="clearfix"> </div>
 				</div>
-				<div class="clearfix"> </div>
 				</div>
 				<!---//End-about-time-line---->
 			<!---- about ---->
@@ -232,7 +257,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<div class="tm-head-grid wow fadeInLeft" data-wow-delay="0.4s">
 								<img src="images/team-member1.jpg" alt="">
 								<h4>Alex Beam</h4>
-								<h5>Developer</h5>
+								<h5>Lead Developer</h5>
 
 								<a href="https://www.linkedin.com/in/ajbeam">
 									<img src="images/linkedin_icon.png"></a>
@@ -265,9 +290,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						</div>
 					</div>
 				</div>
-			<!---- team --->
+			<!--  team -->
 			
-				<!--- copy-right ---->
+				<!-- copy-right -->
 				<div class="copy-right text-center">
 					<script type="text/javascript">
 									$(document).ready(function() {
@@ -286,10 +311,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</script>
 									<a href="#" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
 				</div>
-				<!--- copy-right ---->
+				<!-- copy-right -->
 			</div>
 			</div>
-			<!---- contact --->
+			<!-- contact -->
 		</div>
 	</body>
 </html>
