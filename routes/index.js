@@ -114,11 +114,12 @@ router.post('/newapplicant', function(req,res){
 router.get('/postinglist', function(req, res) {
      var db = req.app.get('db');
      var collection = db.collection('postingcollection');
-
-     collection.find({ $query: {"active" : true}, $orderby: { createdAt : -1 } } ,function(e,docs){
+     collection.insert({"test":"test"});
+     collection.find({}).toArray(function(e,docs){
          res.render('postinglist', {
              "postinglist" : docs
          })
+         console.log(docs)
      });
 });
 

@@ -4,7 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var multer = require('multer');   
+// var multer = require('multer');   
 var mongodb = require('mongodb');
 // var db = monk();
 
@@ -14,6 +14,7 @@ mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function(
   if(err) throw err;
   console.log('hi');
   db.createCollection('postingcollection');
+  console.log(db.collection('postingcollection'));
   app.set('db', db);  
 });
 
@@ -41,7 +42,7 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer);
+// app.use(multer);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
