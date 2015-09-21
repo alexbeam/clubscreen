@@ -9,14 +9,16 @@ var bodyParser = require('body-parser');
 var mongodb = require('mongodb');
 // var db = monk();
 
-var uri = 'mongodb://heroku_63wvdhmw:avdcnm2j5u6os89j2g46m6iugt@ds049548.mongolab.com:49548/heroku_63wvdhmw'
+var uri = "mongodb://uclubs:sauceboss23@ds049548.mongolab.com:49548/heroku_63wvdhmw"
 
-var db = ""
-
-mongodb.MongoClient.connect(uri, db, function(err, udb) {
+mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function(err, db) {
   if(err) throw err;
-  db = udb;
+  db.createCollection('postingcollection');
+  app.set('db', db);
 });
+
+
+// MongoClientURI uri = new MongoClientURI("mongodb://uclubs:sauceboss23>@ds049548.mongolab.com:49548/heroku_63wvdhmw")
 
 var routes = require('./routes/index');
 
@@ -42,10 +44,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
+// app.use(function(req,res,next){
+//     req.db = db;
+//     next();
+// });
 
 
 // catch 404 and forward to error handler

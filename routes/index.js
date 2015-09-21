@@ -111,14 +111,15 @@ router.post('/newapplicant', function(req,res){
 
 /* GET Postinglist page. */
 router.get('/postinglist', function(req, res) {
-    var db = req.db;
-    var collection = db.get('postingcollection');
+     var db = req.app.get('db');
+     console.log(db);
+     var collection = db.get('postingcollection');
 
-    collection.find({ $query: {"active" : true}, $orderby: { createdAt : -1 } } ,function(e,docs){
-        res.render('postinglist', {
-            "postinglist" : docs
-        })
-    });
+     collection.find({ $query: {"active" : true}, $orderby: { createdAt : -1 } } ,function(e,docs){
+         res.render('postinglist', {
+             "postinglist" : docs
+         })
+     });
 });
 
 /* GET Postinglist filters */
