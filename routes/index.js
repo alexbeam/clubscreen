@@ -64,7 +64,8 @@ router.delete('/posting/:id', function(req, res) {
 });
 
 router.post('/newapplicant', function(req,res){
-    var db = req.db;
+    var db = req.app.get('db');
+
     var applicantFirstName = req.body.first;
     var applicantLastName = req.body.last;
     var applicantEmail = req.body.email + '@umich.edu';
@@ -112,8 +113,7 @@ router.post('/newapplicant', function(req,res){
 /* GET Postinglist page. */
 router.get('/postinglist', function(req, res) {
      var db = req.app.get('db');
-     console.log(db);
-     var collection = db.get('postingcollection');
+     var collection = db.collection('postingcollection');
 
      collection.find({ $query: {"active" : true}, $orderby: { createdAt : -1 } } ,function(e,docs){
          res.render('postinglist', {
@@ -166,7 +166,9 @@ router.post('/postinglist', function(req, res) {
 router.post('/addposting', function(req, res) {
 
     // Set our internal DB variable
-    var db = req.db;
+    var db = req.app.get('db');
+
+    console.log(req.body);
 
     // Get our form values. These rely on the "name" attributes
     var postTitle = req.body.title;

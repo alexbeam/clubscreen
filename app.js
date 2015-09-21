@@ -4,8 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var uriUtil = require('mongodb-uri');
-
+var multer = require('multer');   
 var mongodb = require('mongodb');
 // var db = monk();
 
@@ -13,8 +12,9 @@ var uri = "mongodb://uclubs:sauceboss23@ds049548.mongolab.com:49548/heroku_63wvd
 
 mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function(err, db) {
   if(err) throw err;
+  console.log('hi');
   db.createCollection('postingcollection');
-  app.set('db', db);
+  app.set('db', db);  
 });
 
 
@@ -40,7 +40,8 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -77,7 +78,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: {}
+    error: err
   });
 });
 
