@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var nodemailer = require('nodemailer');
 var mongoskin = require('mongoskin');
+var ObjectId = require('mongodb').ObjectID;
 
 /* GET Home Page. */
 router.get('/', function(req, res, next) {
@@ -35,19 +36,21 @@ router.get('/newposting', function(req, res) {
 /*-------------Applicant Data -------------------------------------------*/
 /* GET Single Post Info Page */
 router.get('/posting/:id', function(req,res){
-    var db = req.db;
-    var collection = db.get('postingcollection');
-
-    collection.findOne({_id: req.params.id }, function(e, result){
+    var db = req.app.get('db');
+    var collection = db.collection('postingcollection');
+    console.log(req.params.id);
+    collection.findOne({_id : ObjectId(req.params.id)}, function(e, result){
         if(e) return next(e)
 
         else {
             if (result.active == false) {
-            collection.update({_id : req.params.id}, {$set : {"active" : true}})
+            collection.update({_id : ObjectId(req.params.id)}, {$set : {"active" : true}})
             res.render('posting', { post: result})    
+            console.log(result);
         }
         else
             res.render('posting', { post: result})
+            console.log(result);
         };
     })
 });
@@ -55,8 +58,8 @@ router.get('/posting/:id', function(req,res){
 
 /* DELETE Single Post from DB */
 router.delete('/posting/:id', function(req, res) {
-    var db = req.db;
-    var collection = db.get('postingcollection');
+    var db = req.app.get('db');
+    var collection = db.collection('postingcollection');
     collection.remove({_id: req.collection.id(req.params.id)}, function(e, result){
         if (e) return next(e);
         res.send((result===1)?{msg:'success'}:{msg:'error'})
@@ -64,18 +67,19 @@ router.delete('/posting/:id', function(req, res) {
 });
 
 router.post('/newapplicant', function(req,res){
-    var db = req.db;
+    var db = req.app.get('db');
+
     var applicantFirstName = req.body.first;
     var applicantLastName = req.body.last;
     var applicantEmail = req.body.email + '@umich.edu';
     var applicantPhone = req.body.phone;
     var applicantYear = req.body.year;
     var postID = req.body.id.toString();
-    var collection = db.get('postingcollection');
+    var collection = db.collection('postingcollection');
 
     console.log(applicantEmail);
 
-    collection.findOne({_id: postID}, function(err, posting) {
+    collection.findOne({_id: ObjectId(postID)}, function(err, posting) {
         console.log(posting);
 
         var mailList = 'antoninamalyarenko@gmail.com,' + posting.email + ',' + applicantEmail;
@@ -111,14 +115,15 @@ router.post('/newapplicant', function(req,res){
 
 /* GET Postinglist page. */
 router.get('/postinglist', function(req, res) {
-    var db = req.db;
-    var collection = db.get('postingcollection');
-
-    collection.find({ $query: {"active" : true}, $orderby: { createdAt : -1 } } ,function(e,docs){
-        res.render('postinglist', {
-            "postinglist" : docs
-        })
-    });
+     var db = req.app.get('db');
+     var collection = db.collection('postingcollection');
+     var filters = ["Involvement Type: All", "Position Type: All", "Club Type: All"];
+     collection.find({$query: {"active" : true}, $orderby: { createdAt : -1 }}).toArray(function(e,docs){
+         res.render('postinglist', {
+             "postinglist" : docs, "filterlist" : filters
+         })
+         console.log(docs)
+     });
 });
 
 /* GET Postinglist filters */
@@ -126,6 +131,27 @@ router.post('/postinglist', function(req, res) {
     var involvement_type = req.body.involvement_type;
     var position_type = req.body.position_type;
     var club_type = req.body.club_type;
+
+    if (involvement_type == "") {
+        filter1 = "Involvement Type: All"
+    }
+    else {
+        filter1 = involvement_type
+    }
+    if (position_type == undefined) {
+        filter2 = "Position Type: All"
+    }
+    else {
+        filter2 = position_type
+    }
+    if (club_type == undefined) {
+        filter3 = "Club Type: All"
+    }    
+    else {
+        filter3 = club_type
+    }
+
+    var filters = [filter1, Array(filter2), filter3]
 
     if (involvement_type == "") {
         involvement_type = {$in : ['Freelance Task', 'Club Position']}
@@ -144,18 +170,16 @@ router.post('/postinglist', function(req, res) {
 
     console.log(involvement_type, position_type, club_type);
 
-    var db = req.db;
-    var collection = db.get('postingcollection');
-
-    var filters = [involvement_type, position_type, club_type]
+    var db = req.app.get('db');
+    var collection = db.collection('postingcollection');
 
     collection.find({$query: {
             "active" : true,
             "involvement" : involvement_type, 
             "position_type" : position_type, 
-            "club_type" : club_type}, $orderby: { createdAt : -1 } },function(e,docs){
+            "club_type" : club_type}, $orderby: { createdAt : -1 } }).toArray(function(e,docs){
         console.log(docs);
-        res.render('postinglist', {postinglist: docs})
+        res.render('postinglist', {postinglist: docs, filterlist: filters})
     });
 });
 
@@ -165,7 +189,9 @@ router.post('/postinglist', function(req, res) {
 router.post('/addposting', function(req, res) {
 
     // Set our internal DB variable
-    var db = req.db;
+    var db = req.app.get('db');
+
+    console.log(req.body);
 
     // Get our form values. These rely on the "name" attributes
     var postTitle = req.body.title;
@@ -178,7 +204,7 @@ router.post('/addposting', function(req, res) {
     var daysOnSite = Number(req.body.days);
 
     // Set our collection
-    var collection = db.get('postingcollection');
+    var collection = db.collection('postingcollection');
 
     //Timing
     var created = new Date();
@@ -192,8 +218,8 @@ router.post('/addposting', function(req, res) {
         "club" : postClub,
         "email" : postEmail,
         "involvement" : postInvolvement,
-        "position_type" : Array(positionType),
-        "club_type" : Array(clubType),
+        "position_type" : positionType,
+        "club_type" : clubType,
         "description" : clubDescr,
         "created": created_format,
         "createdAt" : created,
@@ -217,15 +243,15 @@ router.post('/addposting', function(req, res) {
                 html: "<h1>Welcome to uCLUBS!</h1><p>Thank you for submitting a posting, follow this link to activate your posting: </p>" + "<a href='http://localhost:3000/posting/" + doc._id + "'>localhost:3000/posting/"+doc._id+"</a>",
             };
             console.log(mailOptions);
-            transporter.sendMail(mailOptions, function(error, response){
-                if(error){
-                    console.log(error);
-                    res.end("error");
-                }else{
-                    console.log("Message sent: " + response.message);
-                    res.end("sent");
-                }
-            });
+            // transporter.sendMail(mailOptions, function(error, response){
+            //     if(error){
+            //         console.log(error);
+            //         res.end("error");
+            //     }else{
+            //         console.log("Message sent: " + response.message);
+            //         res.end("sent");
+            //     }
+            // });
 
             // And forward to success page
             res.redirect("postinglist");

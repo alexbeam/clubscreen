@@ -10,17 +10,16 @@
 	<% include /partials/navbar %>
 		<div class="container">
 		  <div class="form-group row">
-		    <label for="select" class="col-xs-1 control-label">Filter:</label>
-	      <div class="col-xs-3">
 	      	<form id="formFilter" name="filter" method="post" action="/postinglist">
-			  		<fieldset>
-		        <select class="form-control" title="Involvement Type" name="involvement_type"> 
+			  	<fieldset>
+			  <div class="col-sm-3">
+		        <select class="form-control" title="<%= filterlist[0] %>" name="involvement_type"> 
 		          <option>Club Position</option>
 		          <option>Freelance Task</option>
 		        </select>
 		      </div>
-		      <div class="col-xs-3">
-		        <select multiple title="Position Type" name="position_type">
+		      <div class="col-sm-3">
+		        <select class="form-control" multiple title="<%= filterlist[1] %>" name="position_type">
 		          <option>General Membership</option>
 		          <option>Coding/Web Design</option>
 		          <option>Graphic Design/Art</option>
@@ -29,11 +28,10 @@
 		          <option>Marketing/Promotion</option>
 		          <option>Musical/Performance</option>
 		          <option>Manufacturing/Assembly</option>
-				        </select>
 		        </select>
 		      </div>
-		      <div class="col-xs-3">
-		        <select multiple title="Club Type" class="form-control" name="club_type">
+		      <div class="col-sm-3">
+		        <select multiple title="<%= filterlist[2] %>" class="form-control" name="club_type">
 		          <option>Not Applicable</option>
 		          <option>Activism</option>
 		          <option>Creative Expression</option>
@@ -51,7 +49,7 @@
 		          <option>Social</option>
 		        </select>
 		      </div>
-		      <div class="col-xs-2">
+		      <div class="col-sm-2">
 			      <button type="submit" class="btn btn-primary" style="background-color: #00274c; color: #ffcb05;">GO</button>
 	      </div>
 	    </form>
@@ -102,6 +100,7 @@
 		</div>
 		<script>
 			$('select').selectpicker();
+			// $('#dropdown').selectpicker('val', [<%= filterlist[1] %>]);
 		</script>
 	</body>
 </html>

@@ -12,7 +12,7 @@
 		  <a href="/postinglist" style="color: #00274c;"><h5>< Back</h5></a>
 		  <hr>
 		  <div class="row">
-		    <div class="col-lg-6"><h1>Create a New Posting</h1>
+		    <div class="col-md-6"><h1>Create a New Posting</h1>
 		      <p class="lead">What is your organization looking for?</p>
 		    </div>
 		  </div>
@@ -20,20 +20,20 @@
 			<form class="form-horizontal" id="formAddPosting" name="addposting" method="post" action="/addposting">
 			  <fieldset>
 			    <div class="form-group">
-			      <label for="inputTitle" class="col-lg-2 control-label">Postition Title</label>
-			      <div class="col-lg-4">
+			      <label for="inputTitle" class="col-md-2 control-label">Position Title</label>
+			      <div class="col-md-4">
 			        <input type="text" class="form-control" placeholder="Men's Glee Club- Lead Singer" name="title">
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="inputOrg" class="col-lg-2 control-label">Organization/Club</label>
-			      <div class="col-lg-4">
+			      <label for="inputOrg" class="col-md-2 control-label">Organization/Club</label>
+			      <div class="col-md-4">
 			          <input type="text" class="form-control" placeholder="Alpha Epsilon Delta Pre-Med Fraternity" name="club"/>
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="inputEmail" class="col-lg-2 control-label">Contact Email</label>
-			      <div class="col-lg-3">
+			      <label for="inputEmail" class="col-md-2 control-label">Contact Email</label>
+			      <div class="col-md-3">
 			        <div class="input-group">
 			          <input type="text" name="email" class="form-control" placeholder="uniqname" />
 			          <span class="input-group-addon">@umich.edu</span>
@@ -41,8 +41,8 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="select" class="col-lg-2 control-label">Is this a full-time club position or a freelance task?</label>
-			      <div class="col-lg-4">
+			      <label for="select" class="col-md-2 control-label">Is this a full-time club position or a freelance task?</label>
+			      <div class="col-md-4">
 			        <select class="form-control" name="involvement">
 			          <option>Club Position</option>
 			          <option>Freelance Task</option>
@@ -50,8 +50,8 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="select" class="col-lg-2 control-label">How would you best categorize the posting?</label>
-			      <div class="col-lg-4">
+			      <label for="select" class="col-md-2 control-label">How would you best categorize the posting?</label>
+			      <div class="col-md-4">
 			        <select multiple class="form-control" title="Please select up to 3" data-max-options="3" name="position_type">
 			          <option>General Membership</option>
 			          <option>Coding/Web Design</option>
@@ -65,8 +65,8 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="select" class="col-lg-2 control-label">What type of organization are you posting for?</label>
-			      <div class="col-lg-4">
+			      <label for="select" class="col-md-2 control-label">What type of organization are you posting for?</label>
+			      <div class="col-md-4">
 			        <select multiple class="form-control" title="Please select up to 3" data-max-options="3" name="club_type">
 			          <option>Not Applicable</option>
 			          <option>Activism</option>
@@ -87,8 +87,8 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="select" class="col-lg-2 control-label">How many days before this posting expires?</label>
-			      <div class="col-lg-4">
+			      <label for="select" class="col-md-2 control-label">How many days before this posting expires?</label>
+			      <div class="col-md-4">
 			        <select class="form-control" name="days">
 			          <option>7</option>
 			          <option>14</option>
@@ -97,20 +97,21 @@
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <label for="textArea" class="col-lg-2 control-label" >Please provide a short description of the position:</label>
-			      <div class="col-lg-8">
+			      <label for="textArea" class="col-md-2 control-label" >Please provide a short description of the position:</label>
+			      <div class="col-md-8">
 			        <textarea class="form-control" rows="4" name="description" id="textArea"></textarea>
 			        <span class="help-block">A confirmation email will be sent to the email you provided.</span>
 			      </div>
 			    </div>
 			    <div class="form-group">
-			      <div class="col-lg-10 col-lg-offset-2">
+			      <div class="col-md-10 col-md-offset-2">
 			      	<button id="register" type="submit" class="btn btn-primary" style="background-color: #00274c; color: #ffcb05;">Submit</button>
 			        <a href="/postinglist" class="btn btn-default">Cancel</a>
 			      </div>
 			    </div>
 			  </fieldset>
 			</form>
+			<br><br><br><br><br><br>
 		</div>
 		<script>
 			$(document).ready(function() {

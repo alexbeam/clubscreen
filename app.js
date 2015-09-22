@@ -4,19 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var uriUtil = require('mongodb-uri');
-
+// var multer = require('multer');   
 var mongodb = require('mongodb');
 // var db = monk();
 
-var uri = 'mongodb://heroku_63wvdhmw:avdcnm2j5u6os89j2g46m6iugt@ds049548.mongolab.com:49548/heroku_63wvdhmw'
+var uri = "mongodb://uclubs:sauceboss23@ds049548.mongolab.com:49548/heroku_63wvdhmw"
 
-mongodb.MongoClient.connect(uri, function(err, udb) {
+mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function(err, db) {
   if(err) throw err;
-  var db = udb;
+  console.log('hi');
+  db.createCollection('postingcollection');
+  console.log(db.collection('postingcollection'));
+  app.set('db', db);  
 });
 
-var routes = require('./routes/index');
+
+// MongoClientURI uri = new MongoClientURI("mongodb://uclubs:sauceboss23>@ds049548.mongolab.com:49548/heroku_63wvdhmw")
 
 var app = express();
 
@@ -26,8 +29,6 @@ app.listen(app.get('port'), function() {
     console.log('Our app is running on' + app.get('port'));
 });
 
-app.use('/', routes);
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -36,14 +37,19 @@ app.set('view engine', 'ejs');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(multer);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
+// app.use(function(req,res,next){
+//     req.db = db;
+//     next();
+// });
+
+var routes = require('./routes/index');
+
+app.use('/', routes);
 
 
 // catch 404 and forward to error handler
@@ -73,7 +79,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
     message: err.message,
-    error: {}
+    error: err
   });
 });
 
