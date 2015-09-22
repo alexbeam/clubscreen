@@ -26,10 +26,9 @@ var transporter = nodemailer.createTransport("SMTP", {
         XOAuth2:
             {
             user: "uclubs.noreply@gmail.com",
-            clientID: "127548296148-9mtk4c71g87m4avpd246uq0p41nfiusj.apps.googleusercontent.com",
-            clientSecret:"DRTJlnCO-BV2P4C9SXGu-yMU",
-            refreshToken:"1/LQgqhh8LGLXwVc0fQkP0citx4tr6gBeOcyG4tvRSB9tIgOrJDtdun6zK6XiATCKT"
-            // pass: "sauceboss23"
+            clientId: "127548296148-kdcv51r108i6mgk0b18vssov0jhodesg.apps.googleusercontent.com",
+            clientSecret:"HSRbqGslPyBBFmUPdR1UXsvL",
+            refreshToken:"1/n3fOKuR9twOcYDnnbba5weM3VEMQMBO09UH7jyvM1xI"
             }
         
     }
@@ -89,12 +88,13 @@ router.post('/newapplicant', function(req,res){
     collection.findOne({_id: ObjectId(postID)}, function(err, posting) {
         console.log(posting);
 
-        var mailList = 'antoninamalyarenko@gmail.com,' + posting.email + ',' + applicantEmail;
+        var mailList = posting.email + ',' + applicantEmail;
 
         var mailOptions={
+            from : "uclubs.noreply@gmail.com",
             to : mailList,
             subject : "New Post from uCLUBS - Please Read",
-            text: "Name: " + applicantFirstName + " " + applicantLastName + " You applied for "+ posting.title,
+            text: "Name: " + applicantFirstName + " " + applicantLastName + " applied for "+ posting.title,
             html: ""
         };
         console.log(mailOptions);
@@ -106,14 +106,18 @@ router.post('/newapplicant', function(req,res){
         });
 
         transporter.sendMail(mailOptions, function(error, response){
-            if(error){
+            if(error)
+            {
                 console.log(error);
                 res.end("error");
-            }else{
+            }
+            else
+            {
                 console.log("Message sent: " + response.message);
                 // And forward to success page
                 res.redirect("postinglist");
             }
+            transporter.close();
         });
     });
 });
@@ -129,7 +133,6 @@ router.get('/postinglist', function(req, res) {
          res.render('postinglist', {
              "postinglist" : docs, "filterlist" : filters
          })
-         console.log(docs)
      });
 });
 
@@ -174,9 +177,6 @@ router.post('/postinglist', function(req, res) {
                             'Health and Wellness', 'Religious/Spiritual', 'Technology/Science',
                             'Community Engagement', 'Greek', 'Academic', 'Athletics', 'Career Development', 'Social']}
     }
-
-    console.log(involvement_type, position_type, club_type);
-
     var db = req.app.get('db');
     var collection = db.collection('postingcollection');
 
@@ -185,7 +185,6 @@ router.post('/postinglist', function(req, res) {
             "involvement" : involvement_type, 
             "position_type" : position_type, 
             "club_type" : club_type}, $orderby: { createdAt : -1 } }).toArray(function(e,docs){
-        console.log(docs);
         res.render('postinglist', {postinglist: docs, filterlist: filters})
     });
 });
@@ -197,7 +196,6 @@ router.post('/addposting', function(req, res) {
 
     // Set our internal DB variable
     var db = req.app.get('db');
-
     console.log(req.body);
 
     // Get our form values. These rely on the "name" attributes
@@ -219,8 +217,7 @@ router.post('/addposting', function(req, res) {
     var created_format = (created.getMonth() + 1) + '/' + created.getDate() + '/' + (created.getYear()-100+2000);
     var exp_format = (expdate.getMonth() + 1) + '/' + expdate.getDate() + '/' + (expdate.getYear()-100+2000);
 
-    // Submit to the DB
-    collection.insert({
+    var data = {
         "title" : postTitle,
         "club" : postClub,
         "email" : postEmail,
@@ -234,30 +231,35 @@ router.post('/addposting', function(req, res) {
         "expires" : exp_format,
         "received": 0,
         "active": false
-    }, function (err, doc) {
+    }
+    // Submit to the DB
+    collection.insert(data, function (err, doc) {
         if (err) {
             // If it failed, return error
             res.send("There was a problem adding the information to the database.");
         }
         else {
+            console.log(data.title);
             //send email
             var mailOptions={
+                from : "uclubs.noreply@gmail.com",
                 to : postEmail,
                 subject : "New Post from uCLUBS- Please Read",
-                // text: "Title: " + postTitle + " Club/Organization: " + postClub + " Email: " + postEmail
-                // + " Involvement: " + postInvolvement + " Position Type: " + positionType + " Club Type: "
-                // + clubType + " Club Description: " + clubDescr + " Please activate post by visiting: localhost:3000/posting/" + doc._id,
-                html: "<h1>Welcome to uCLUBS!</h1><p>Thank you for submitting a posting, follow this link to activate your posting: </p>" + "<a href='http://localhost:3000/posting/" + doc._id + "'>localhost:3000/posting/"+doc._id+"</a>",
+                generateTextFromHTML : true,
+                html : "<h1>Welcome to uCLUBS!</h1><p>Thank you for submitting a posting, follow this link to activate your posting: " + data.title + "</p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>localhost:3000/posting/"+data._id+"</a>",
             };
-            console.log(mailOptions);
             transporter.sendMail(mailOptions, function(error, response){
-                if(error){
+                if(error)
+                {
                     console.log(error);
                     res.end("error");
-                }else{
+                }
+                else
+                {
                     console.log("Message sent: " + response.message);
                     res.end("sent");
                 }
+                transporter.close();
             });
 
             // And forward to success page
