@@ -7208,3 +7208,13 @@ a.list-group-item-danger.active:focus {
 .popover {
   color: #555555;
 }
+
+@media (max-width: 767px) {
+   .brand-img {
+     display: table;
+     margin: 0 auto;
+   }
+   .navbar-header{
+     padding-top: 15px;
+   }
+}

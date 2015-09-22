@@ -20,11 +20,18 @@ router.get('/resources', function(req, res, next) {
 });
 
 /* Configure SMTP server details with Gmail*/
-var transporter = nodemailer.createTransport("SMTP",{
+var transporter = nodemailer.createTransport("SMTP", {
     service: "Gmail",
     auth: {
-        user: "antoninamalyarenko@gmail.com",
-        pass: "meow1234"
+        XOAuth2:
+            {
+            user: "uclubs.noreply@gmail.com",
+            clientID: "127548296148-9mtk4c71g87m4avpd246uq0p41nfiusj.apps.googleusercontent.com",
+            clientSecret:"DRTJlnCO-BV2P4C9SXGu-yMU",
+            refreshToken:"1/LQgqhh8LGLXwVc0fQkP0citx4tr6gBeOcyG4tvRSB9tIgOrJDtdun6zK6XiATCKT"
+            // pass: "sauceboss23"
+            }
+        
     }
 });
 
@@ -243,15 +250,15 @@ router.post('/addposting', function(req, res) {
                 html: "<h1>Welcome to uCLUBS!</h1><p>Thank you for submitting a posting, follow this link to activate your posting: </p>" + "<a href='http://localhost:3000/posting/" + doc._id + "'>localhost:3000/posting/"+doc._id+"</a>",
             };
             console.log(mailOptions);
-            // transporter.sendMail(mailOptions, function(error, response){
-            //     if(error){
-            //         console.log(error);
-            //         res.end("error");
-            //     }else{
-            //         console.log("Message sent: " + response.message);
-            //         res.end("sent");
-            //     }
-            // });
+            transporter.sendMail(mailOptions, function(error, response){
+                if(error){
+                    console.log(error);
+                    res.end("error");
+                }else{
+                    console.log("Message sent: " + response.message);
+                    res.end("sent");
+                }
+            });
 
             // And forward to success page
             res.redirect("postinglist");
