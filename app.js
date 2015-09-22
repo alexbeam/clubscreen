@@ -3,23 +3,16 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-// var multer = require('multer');   
+var bodyParser = require('body-parser');   
 var mongodb = require('mongodb');
-// var db = monk();
 
 var uri = "mongodb://uclubs:sauceboss23@ds049548.mongolab.com:49548/heroku_63wvdhmw"
 
 mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function(err, db) {
   if(err) throw err;
-  console.log('hi');
   db.createCollection('postingcollection');
-  console.log(db.collection('postingcollection'));
   app.set('db', db);  
 });
-
-
-// MongoClientURI uri = new MongoClientURI("mongodb://uclubs:sauceboss23>@ds049548.mongolab.com:49548/heroku_63wvdhmw")
 
 var app = express();
 
@@ -41,11 +34,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(multer);
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-// app.use(function(req,res,next){
-//     req.db = db;
-//     next();
-// });
 
 var routes = require('./routes/index');
 
