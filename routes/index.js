@@ -100,7 +100,7 @@ router.post('/newapplicant', function(req,res){
         console.log(mailOptions);
 
         postCount= posting.received;
-        collection.update({_id:postID},{$set:{received: postCount +1}}, function(err, updated) {
+        collection.update({_id: ObjectId(postID)},{$set:{received: postCount +1}}, function(err, updated) {
             if (err || !updated) console.log("Post not updated");
             else console.log("Post updated");
         });

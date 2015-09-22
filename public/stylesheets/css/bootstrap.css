@@ -6795,4 +6795,11 @@ button.close {
     display: none !important;
   }
 }
+
+@media (max-width:768px){
+  .container {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
 /*# sourceMappingURL=bootstrap.css.map */

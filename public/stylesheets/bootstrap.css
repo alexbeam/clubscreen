@@ -7218,3 +7218,10 @@ a.list-group-item-danger.active:focus {
      padding-top: 15px;
    }
 }
+
+@media (max-width:768px){
+  .container.form-pg {
+    padding-left: 3em;
+    padding-right: 3em;
+  }
+}

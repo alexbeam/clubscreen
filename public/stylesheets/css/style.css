@@ -929,6 +929,9 @@ a.leran-more:hover{
 	.container{
 		width:80%;
 	}
+	.logo img {
+		width: 110%;
+	}
 	.portfolio-work-grid-caption {
 		padding: 2.4em 1em 0em 1em;
 	}
@@ -1401,5 +1404,16 @@ a.leran-more:hover{
 		padding: 0.7em 0em;
 		width: 100%;
 		outline:none;
+	}
+}
+
+@media (max-width:768px){
+	.about-time-line > li .cbp_tmicon,.cbp_tmicon1,.cbp_tmicon2,.cbp_tmicon3,.cbp_tmicon2,.cbp_tmicon4 {	
+		width: 120px;
+		height: 120px;
+	}
+	.container {
+		padding-left: 15px;
+    	padding-right: 15px;
 	}
 }
