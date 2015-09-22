@@ -117,9 +117,10 @@ router.post('/newapplicant', function(req,res){
 router.get('/postinglist', function(req, res) {
      var db = req.app.get('db');
      var collection = db.collection('postingcollection');
-     collection.find({$query: {}, $orderby: { createdAt : -1 }}).toArray(function(e,docs){
+     var filters = ["Involvement Type: All", "Position Type: All", "Club Type: All"];
+     collection.find({$query: {"active" : true}, $orderby: { createdAt : -1 }}).toArray(function(e,docs){
          res.render('postinglist', {
-             "postinglist" : docs
+             "postinglist" : docs, "filterlist" : filters
          })
          console.log(docs)
      });
@@ -130,6 +131,27 @@ router.post('/postinglist', function(req, res) {
     var involvement_type = req.body.involvement_type;
     var position_type = req.body.position_type;
     var club_type = req.body.club_type;
+
+    if (involvement_type == "") {
+        filter1 = "Involvement Type: All"
+    }
+    else {
+        filter1 = involvement_type
+    }
+    if (position_type == undefined) {
+        filter2 = "Position Type: All"
+    }
+    else {
+        filter2 = position_type
+    }
+    if (club_type == undefined) {
+        filter3 = "Club Type: All"
+    }    
+    else {
+        filter3 = club_type
+    }
+
+    var filters = [filter1, Array(filter2), filter3]
 
     if (involvement_type == "") {
         involvement_type = {$in : ['Freelance Task', 'Club Position']}
@@ -151,15 +173,13 @@ router.post('/postinglist', function(req, res) {
     var db = req.app.get('db');
     var collection = db.collection('postingcollection');
 
-    var filters = [involvement_type, position_type, club_type]
-
     collection.find({$query: {
             "active" : true,
             "involvement" : involvement_type, 
             "position_type" : position_type, 
             "club_type" : club_type}, $orderby: { createdAt : -1 } }).toArray(function(e,docs){
         console.log(docs);
-        res.render('postinglist', {postinglist: docs})
+        res.render('postinglist', {postinglist: docs, filterlist: filters})
     });
 });
 
