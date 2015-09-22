@@ -103,7 +103,7 @@ nav a#pull {
 	display: none;
 }
 /*Styles for screen 600px and lower*/
-@media screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
 	nav { 
   		height: auto;
   		float:none;
@@ -481,7 +481,7 @@ a.leran-more:hover{
 	list-style: none;
 	position: relative;
 	width: 60%;
-	margin: 6em auto 15em;
+	margin: 6em auto 0em;
 }
 .about-time-line li{
 	display: inline;
@@ -979,7 +979,7 @@ a.leran-more:hover{
 		padding: 1.5em 4em 1.5em 4em;
 	}
 	.about {
-		padding: 1em 0 14em;
+		padding: 1em 0 1em;
 	}
 	.about-time-line {
 		width: 100%;
@@ -1012,7 +1012,7 @@ a.leran-more:hover{
 		margin:0 0 1em 0;
 	}
 }
-@media (max-width:640px){
+@media only (max-width:640px){
 	.container{
 		width:80%;
 	}
@@ -1105,7 +1105,7 @@ a.leran-more:hover{
 		margin:0 0 1em 0;
 	}
 }
-@media (max-width:480px){
+@media only (max-width:480px){
 	.container{
 		width:80%;
 	}
@@ -1234,7 +1234,7 @@ a.leran-more:hover{
 		outline:none;
 	}
 }
-@media (max-width:320px){
+@media only (max-width:320px){
 	.container{
 		width:90%;
 	}
