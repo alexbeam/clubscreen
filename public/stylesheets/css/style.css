@@ -1416,4 +1416,8 @@ a.leran-more:hover{
 		padding-left: 15px;
     	padding-right: 15px;
 	}
+	.bg{
+		background:url(../../images/banner.png) no-repeat 35% 0px;
+		background-size:cover;
+	}
 }
