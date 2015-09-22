@@ -21,8 +21,6 @@ mongodb.MongoClient.connect(uri, { server: { auto_reconnect: true } }, function(
 
 // MongoClientURI uri = new MongoClientURI("mongodb://uclubs:sauceboss23>@ds049548.mongolab.com:49548/heroku_63wvdhmw")
 
-var routes = require('./routes/index');
-
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -30,8 +28,6 @@ app.set('port', (process.env.PORT || 5000));
 app.listen(app.get('port'), function() {
     console.log('Our app is running on' + app.get('port'));
 });
-
-app.use('/', routes);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -50,6 +46,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     req.db = db;
 //     next();
 // });
+
+var routes = require('./routes/index');
+
+app.use('/', routes);
 
 
 // catch 404 and forward to error handler
