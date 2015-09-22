@@ -80,6 +80,7 @@ router.post('/newapplicant', function(req,res){
     var applicantEmail = req.body.email + '@umich.edu';
     var applicantPhone = req.body.phone;
     var applicantYear = req.body.year;
+    var applicantExperience = req.body.experience;
     var postID = req.body.id.toString();
     var collection = db.collection('postingcollection');
 
@@ -93,9 +94,9 @@ router.post('/newapplicant', function(req,res){
         var mailOptions={
             from : "uclubs.noreply@gmail.com",
             to : mailList,
-            subject : "New Post from uCLUBS - Please Read",
-            text: "Name: " + applicantFirstName + " " + applicantLastName + " applied for "+ posting.title,
-            html: ""
+            subject : "New Applicant from uCLUBS,",
+            generateTextFromHTML : true,
+            html: "<h1>You have a new applicant for " + posting.title + "</h1><h3>" + applicantFirstName + " " + applicantLastName + "</h3><p>" + applicantEmail + "</p><p>+1 " + applicantPhone + "</p><p>" + applicantYear + "</p><h3>Relevant Experience/What makes you a good candidate?</h3><p>" + applicantExperience + "</p>"
         };
         console.log(mailOptions);
 
@@ -244,9 +245,9 @@ router.post('/addposting', function(req, res) {
             var mailOptions={
                 from : "uclubs.noreply@gmail.com",
                 to : postEmail,
-                subject : "New Post from uCLUBS- Please Read",
+                subject : "Activate your post on uCLUBS",
                 generateTextFromHTML : true,
-                html : "<h1>Welcome to uCLUBS!</h1><p>Thank you for submitting a posting, follow this link to activate your posting: " + data.title + "</p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>localhost:3000/posting/"+data._id+"</a>",
+                html : "<h1>Welcome to uCLUBS,</h1><p>Thank you for submitting a the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
             };
             transporter.sendMail(mailOptions, function(error, response){
                 if(error)
