@@ -94,9 +94,9 @@ router.post('/newapplicant', function(req,res){
         var mailOptions={
             from : "uclubs.noreply@gmail.com",
             to : mailList,
-            subject : "New Applicant from uCLUBS,",
+            subject : "uCLUBS - You have a new applicant",
             generateTextFromHTML : true,
-            html: "<h1>You have a new applicant for " + posting.title + "</h1><h3>" + applicantFirstName + " " + applicantLastName + "</h3><p>" + applicantEmail + "</p><p>+1 " + applicantPhone + "</p><p>" + applicantYear + "</p><h3>Relevant Experience/What makes you a good candidate?</h3><p>" + applicantExperience + "</p>"
+            html: "<h2>New applicant for " + posting.title + "</h2><strong>" + applicantFirstName + " " + applicantLastName + "</strong> (" + applicantYear + ")<br>Email: " + applicantEmail + "<br>Phone: +1 " + applicantPhone + "<br><p><strong>Relevant Experience/What makes you a good candidate?</strong><br>" + applicantExperience + "</p>"
         };
         console.log(mailOptions);
 
@@ -247,7 +247,7 @@ router.post('/addposting', function(req, res) {
                 to : postEmail,
                 subject : "Activate your post on uCLUBS",
                 generateTextFromHTML : true,
-                html : "<h1>Welcome to uCLUBS,</h1><p>Thank you for submitting a the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
+                html : "<h2>Welcome to uCLUBS,</h2><p>Thank you for submitting a the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
             };
             transporter.sendMail(mailOptions, function(error, response){
                 if(error)
