@@ -624,6 +624,13 @@ a.leran-more:hover{
 	-moz-border-radius: 30em;
 	-o-border-radius: 30em;
 }
+.tm-head-grid img.built{
+	border-radius: 30em;
+	-webkit-border-radius: 30em;
+	-moz-border-radius: 30em;
+	-o-border-radius: 30em;
+	width: 125px;
+}
 .tm-head-grid {
 	width: 30.33%;
 	text-align: center;

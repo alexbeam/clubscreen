@@ -3,6 +3,8 @@ var router = express.Router();
 var nodemailer = require('nodemailer');
 var mongoskin = require('mongoskin');
 var ObjectId = require('mongodb').ObjectID;
+var moment = require('moment');
+moment().format();
 
 /* GET Home Page. */
 router.get('/', function(req, res, next) {
@@ -213,10 +215,12 @@ router.post('/addposting', function(req, res) {
     var collection = db.collection('postingcollection');
 
     //Timing
-    var created = new Date();
+    var created = new Date()
+    var fcreated = moment().utcOffset(-500);
     var expdate = new Date(new Date().setDate(new Date().getDate() + daysOnSite));
-    var created_format = (created.getMonth() + 1) + '/' + created.getDate() + '/' + (created.getYear()-100+2000);
-    var exp_format = (expdate.getMonth() + 1) + '/' + expdate.getDate() + '/' + (expdate.getYear()-100+2000);
+    var fdate = moment(expdate).utcOffset(-500);
+    var created_format = fcreated.format("MM/DD/YYYY")
+    var exp_format = fdate.format("MM/DD/YYYY")
 
     var data = {
         "title" : postTitle,
@@ -247,7 +251,7 @@ router.post('/addposting', function(req, res) {
                 to : postEmail,
                 subject : "Activate your post on uCLUBS",
                 generateTextFromHTML : true,
-                html : "<h2>Welcome to uCLUBS,</h2><p>Thank you for submitting a the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
+                html : "<h2>Welcome to uCLUBS,</h2><p>Thank you for submitting the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
             };
             transporter.sendMail(mailOptions, function(error, response){
                 if(error)

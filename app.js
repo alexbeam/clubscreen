@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');   
 var mongodb = require('mongodb');
+var moment = require('moment');
+moment().format();
 
 var uri = "mongodb://uclubs:sauceboss23@ds049548.mongolab.com:49548/heroku_63wvdhmw"
 
