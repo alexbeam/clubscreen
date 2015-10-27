@@ -104,8 +104,9 @@ router.post('/newapplicant', function(req,res){
                 res.end("error");
             }else{
                 console.log("Message sent: " + response.message);
+
                 // And forward to success page
-                res.redirect("postinglist");
+                res.redirect("applied");
             }
         });
     });
@@ -243,18 +244,8 @@ router.post('/addposting', function(req, res) {
                 html: "<h1>Welcome to uCLUBS!</h1><p>Thank you for submitting a posting, follow this link to activate your posting: </p>" + "<a href='http://localhost:3000/posting/" + doc._id + "'>localhost:3000/posting/"+doc._id+"</a>",
             };
             console.log(mailOptions);
-            // transporter.sendMail(mailOptions, function(error, response){
-            //     if(error){
-            //         console.log(error);
-            //         res.end("error");
-            //     }else{
-            //         console.log("Message sent: " + response.message);
-            //         res.end("sent");
-            //     }
-            // });
 
-            // And forward to success page
-            res.redirect("postinglist");
+            res.redirect("posted");
         }
     });
 });
