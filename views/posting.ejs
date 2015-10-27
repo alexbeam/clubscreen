@@ -3,6 +3,9 @@
 <head>
   <title><%= post.title %></title>
   <% include /partials/header %>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/stylesheets/summernote.css" rel="stylesheet">
+  <script src="/javascripts/summernote.min.js"></script>
 </head>
   <body>
     <% include /partials/navbar %>
@@ -11,7 +14,7 @@
       <hr>
         <h1><%= post.title %></h1>
           <p class="lead"><%= post.club %></p>
-          <p><%= post.description %></p><br>
+          <p id="desc"><%= post.description %></p><br>
           Date Posted: <span class="badge" style="background-color: #00274c; color:#ffcb05;"><%= post.created %></span><br>
           Expires: <span class="badge" style="background-color: #00274c; color:#ffcb05;"><%= post.expires %></span><br>
           Applicants Received: <span class="badge" style="background-color: #00274c; color:#ffcb05;"><%= post.received %></span><br>
@@ -22,17 +25,17 @@
           <div class="form-group">
             <label for="inputEmail" class="col-md-2 control-label">Name</label>
             <div class="col-md-3">
-              <input type="text" class="form-control" name="first" placeholder="First">
+              <input type="text" class="form-control apply" name="first" placeholder="First">
             </div>
             <div class="col-md-3">
-              <input type="text" class="form-control" name="last" placeholder="Last">
+              <input type="text" class="form-control apply" name="last" placeholder="Last">
             </div>
           </div>
             <div class="form-group">
               <label for="inputEmail" class="col-md-2 control-label">Email</label>
               <div class="col-md-3">
                 <div class="input-group">
-                  <input type="text" class="form-control" name="email" placeholder="uniqname">
+                  <input type="text" class="form-control apply" name="email" placeholder="uniqname">
                   <span class="input-group-addon">@umich.edu</span>
                 </div>
               </div>
@@ -42,7 +45,7 @@
               <div class="col-md-3">
                 <div class="input-group">
                   <span class="input-group-addon">+1</span>
-                  <input type="text" class="form-control" name="phone" maxlength="10" placeholder="(XXX) XXX-XXXX">
+                  <input type="text" class="form-control apply" name="phone" maxlength="10" placeholder="(XXX) XXX-XXXX">
                 </div>
               </div>
             </div>
@@ -61,7 +64,7 @@
             <div class="form-group">
               <label for="textArea" class="col-md-2 control-label">Relevant Experience /<br>What makes you a good candidate?</label>
               <div class="col-md-8">
-                <textarea name="experience" class="form-control" rows="5" id="textArea"></textarea>
+                <textarea id="summernote" name="experience"></textarea>
                 <span class="help-block">Your response will be sent to the posting organization's email</span>
               </div>
             </div>
@@ -77,43 +80,58 @@
     </div>
     <script>
       $( document ).ready(function() {
-          var empty = false;
-        $('form input').each(function() {
-            if ($(this).val() == '') {
-                empty = true;
-            }
+        $('#summernote').summernote(
+          {
+              height: 250,
+              minHeight: 250,
+              maxHeight: 250,
+            });
+        $('.note-fontname').remove();
+        $('.note-para').remove();
+        $('.note-color').remove();
+        $('.note-style').remove();
+        $('.note-height').remove();
+        $('.note-help').remove();
+        $('.note-statusbar').remove();
+        $('.note-fontsize').remove();
+        $("button[data-original-title='Picture']").remove();
+        $("button[data-original-title='Insert Horizontal Rule (⌘+ENTER)']").remove();
+        $("button[data-original-title='Code View']").remove();
+        var empty = false;
+        $('form input.apply').each(function() {
+          if ($(this).val() == '') {
+              empty = true;
+          }
         });
 
-        $('form textarea' ).each(function() {
-              if ($(this).val() == '') {
+        $('.note-editable').each(function() {
+              if ($(this).text() == '') {
                   empty = true;
               }
-          });
+        });
 
-          if (empty) {
+        if (empty) {
               $('#register').addClass('disabled');
               $('#register').attr('disabled', 'disabled');
               $('#register').prop('disabled', true);
                // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
-          }
-      });
-
-      $('form input').keyup(function() {
-
+        }
+      var html = $('p#desc').text();
+      var description = $.parseHTML(html);
+      $('p#desc').html(description);
+      $('form input.apply').keyup(function() {
         var empty = false;
-        $('form input' ).each(function() {
+        $('form input.apply' ).each(function() {
             if ($(this).val() == '') {
                 empty = true;
             }
-        });
+          });
 
-        $('form textarea' ).each(function() {
-            if ($(this).val() == '') {
-                empty = true;
-            }
-        });
+        if ($('.note-editable').text() == '') {
+            empty = true;
+        }
 
-        if (empty) {
+        if (empty == true) {
             $('#register').addClass('disabled');
             $('#register').attr('disabled', 'disabled');
             $('#register').prop('disabled', true); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
@@ -125,20 +143,18 @@
         }
       });
 
-      $('form textarea').keyup(function() {
+      $('.note-editable').keyup(function() {
 
         var empty = false;
-        $('form input' ).each(function() {
+        $('form input.apply').each(function() {
             if ($(this).val() == '') {
                 empty = true;
             }
         });
 
-        $('form textarea' ).each(function() {
-            if ($(this).val() == '') {
-                empty = true;
-            }
-        });
+        if ($('.note-editable').text() == '') {
+            empty = true;
+        }
 
         if (empty) {
             $('#register').addClass('disabled');
@@ -159,6 +175,7 @@
               return false;
             }
       });
+    });
     </script>
   </body>
 </html>
