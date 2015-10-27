@@ -5,6 +5,9 @@
 	<% include /partials/header %>
 	<link rel="stylesheet" href="/stylesheets/bootstrap-select.css">
 	<script src="/javascripts/bootstrap-select.js"></script>
+	<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/stylesheets/summernote.css" rel="stylesheet">
+	<script src="/javascripts/summernote.min.js"></script>
 </head>
 	<body>
 	  <% include /partials/navbar %>
@@ -19,20 +22,20 @@
 			    <div class="form-group">
 			      <label for="inputTitle" class="col-md-2 control-label">Position Title</label>
 			      <div class="col-md-4">
-			        <input type="text" class="form-control" placeholder="Men's Glee Club- Lead Singer" name="title">
+			        <input type="text" class="form-control post" placeholder="Men's Glee Club- Lead Singer" name="title">
 			      </div>
 			    </div>
 			    <div class="form-group">
 			      <label for="inputOrg" class="col-md-2 control-label">Organization/Club</label>
 			      <div class="col-md-4">
-			          <input type="text" class="form-control" placeholder="Alpha Epsilon Delta Pre-Med Fraternity" name="club"/>
+			          <input type="text" class="form-control post" placeholder="Alpha Epsilon Delta Pre-Med Fraternity" name="club"/>
 			      </div>
 			    </div>
 			    <div class="form-group">
 			      <label for="inputEmail" class="col-md-2 control-label">Contact Email</label>
 			      <div class="col-md-3">
 			        <div class="input-group">
-			          <input type="text" name="email" class="form-control" placeholder="uniqname" />
+			          <input type="text" name="email" class="form-control post" placeholder="uniqname" />
 			          <span class="input-group-addon">@umich.edu</span>
 			        </div>
 			      </div>
@@ -96,7 +99,7 @@
 			    <div class="form-group">
 			      <label for="textArea" class="col-md-2 control-label" >Please provide a short description of the position:</label>
 			      <div class="col-md-8">
-			        <textarea class="form-control" rows="4" name="description" id="textArea"></textarea>
+			        <textarea id="summernote" name="description"></textarea>
 			        <span class="help-block">A confirmation email will be sent to the email you provided.</span>
 			      </div>
 			    </div>
@@ -112,6 +115,23 @@
 		</div>
 		<script>
 			$(document).ready(function() {
+				$('#summernote').summernote(
+					{
+						height: 250,
+						minHeight: 250,
+  						maxHeight: 250,
+					});
+				$('.note-fontname').remove();
+				$('.note-para').remove();
+				$('.note-color').remove();
+				$('.note-style').remove();
+				$('.note-height').remove();
+				$('.note-help').remove();
+				$('.note-statusbar').remove();
+				$('.note-fontsize').remove();
+				$("button[data-original-title='Picture']").remove();
+				$("button[data-original-title='Insert Horizontal Rule (⌘+ENTER)']").remove();
+				$("button[data-original-title='Code View']").remove();
 				$('select').selectpicker();
 				$("select").on("click", "option", function () {
 			    if ( 3 <= $(this).siblings(":selected").length ) {
@@ -119,68 +139,62 @@
 			    }
 				});
 
-		        var empty = false;
-		        $('form input').each(function() {
-		            if ($(this).val() == '') {
-		                empty = true;
-		            }
-		        });
-
-		        $('form textarea' ).each(function() {
-		              if ($(this).val() == '') {
-		                  empty = true;
-		              }
-		          });
-
-		          if (empty) {
-		              $('#register').addClass('disabled');
-		              $('#register').attr('disabled', 'disabled');
-		              $('#register').prop('disabled', true);
-		               // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
-		          }
-		      });
-
-		      $('form input').keyup(function() {
-
-		        var empty = false;
-		        $('form input' ).each(function() {
-		            if ($(this).val() == '') {
-		                empty = true;
-		            }
-		        });
-
-		        $('form textarea' ).each(function() {
-		            if ($(this).val() == '') {
-		                empty = true;
-		            }
-		        });
-
-		        if (empty) {
-		            $('#register').addClass('disabled');
-		            $('#register').attr('disabled', 'disabled');
-		            $('#register').prop('disabled', true);
-		             // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
-		        } else {
-		            $('#register').removeClass('disabled');
-		            $('#register').removeAttr('disabled', 'disabled');
-		            $('#register').removeProp('disabled', true); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+		      var empty = false;
+		      $('form input.post').each(function() {
+		        if ($(this).val() == '') {
+		            empty = true;
 		        }
 		      });
 
-		      $('form textarea').keyup(function() {
+		      $('.note-editable').each(function() {
+		            if ($(this).text() == '') {
+		                empty = true;
+		            }
+		      });
+
+		      if (empty) {
+		            $('#register').addClass('disabled');
+		            $('#register').attr('disabled', 'disabled');
+		            $('#register').prop('disabled', true);
+		             // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+		      }
+
+		      $('form input.post').keyup(function() {
+		        var empty = false;
+		        $('form input.post' ).each(function() {
+		            if ($(this).val() == '') {
+		                empty = true;
+		            }
+		          });
+
+		        if ($('.note-editable').text() == '') {
+		            empty = true;
+		        }
+
+		        if (empty == true) {
+		            $('#register').addClass('disabled');
+		            $('#register').attr('disabled', 'disabled');
+		            $('#register').prop('disabled', true); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+		        } else {
+		            $('#register').removeClass('disabled'); 
+		            $('#register').removeAttr('disabled', 'disabled');
+		            $('#register').removeProp('disabled', true);
+		            // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+		        }
+		      });
+
+		      $('.note-editable').keyup(function() {
 
 		        var empty = false;
-		        $('form input' ).each(function() {
+		        $('form input.post').each(function() {
 		            if ($(this).val() == '') {
 		                empty = true;
 		            }
 		        });
 
-		        $('form textarea' ).each(function() {
-		            if ($(this).val() == '') {
-		                empty = true;
-		            }
-		        });
+		        if ($('.note-editable').text() == '') {
+		            empty = true;
+		        }
 
 		        if (empty) {
 		            $('#register').addClass('disabled');
@@ -190,17 +204,18 @@
 		        } else {
 		            $('#register').removeClass('disabled');
 		            $('#register').removeAttr('disabled', 'disabled');
-		            $('#register').removeProp('disabled', true); // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
+		            $('#register').removeProp('disabled', true);
+		             // updated according to http://stackoverflow.com/questions/7637790/how-to-remove-disabled-attribute-with-jquery-ie
 		        }
 		      });
 		      $('form input').on('keyup keypress', function(e) {
-		        var code = e.keyCode || e.which;
-		        if (code == 13) { 
-		          e.preventDefault();
-		          return false;
-		        }
+		            var code = e.keyCode || e.which;
+		            if (code == 13) { 
+		              e.preventDefault();
+		              return false;
+		            }
+		      });
 		      });
     </script>
-
 	</body>
 </html>
