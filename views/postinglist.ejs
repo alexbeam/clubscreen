@@ -50,7 +50,7 @@
 		        </select>
 		      </div>
 		      <div class="col-sm-2">
-			      <button type="submit" class="btn btn-primary" style="background-color: #00274c; color: #ffcb05;">GO</button>
+			      <button type="submit" class="btn btn-primary" style="background-color: #00274c; color: #ffcb05;">FILTER</button>
 	      </div>
 	    </form>
 	    </div>
@@ -75,9 +75,6 @@
 					      <%= postinglist[post].title %></a>
 					 	  	</h4><%= postinglist[post].club %><br>Applicants Received: <%= postinglist[post].received %>
 					  </td>
-				    <!--   <td>
-				      	<%= postinglist[post].position_type %>
-				      </td> -->
 				      <td>
 				      	<button onclick="window.location.href='/posting/<%= postinglist[post]._id %>'" class="btn btn-block btn-primary" style="background-color: #00274c; color: #ffcb05; height: 60px;">Apply</button>
 				      </td>
@@ -86,21 +83,9 @@
 			  </tbody>
 			</table>
 			<hr>
-		  <!-- <div style="text-align: center;">
-		      <ul class="pagination">
-		        <li class="disabled"><a href="#"><<</a></li>
-		        <li class="active"><a href="#">1</a></li>
-		        <li><a href="#">2</a></li>
-		        <li><a href="#">3</a></li>
-		        <li><a href="#">4</a></li>
-		        <li><a href="#">5</a></li>
-		        <li><a href="#">>></a></li>
-		      </ul>
-		  </div> -->
 		</div>
 		<script>
 			$('select').selectpicker();
-			// $('#dropdown').selectpicker('val', [<%= filterlist[1] %>]);
 		</script>
 	</body>
 </html>
