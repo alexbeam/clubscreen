@@ -63,11 +63,11 @@ router.get('/posting/:id', function(req,res){
         else {
             if (result.active == false) {
             collection.update({_id : ObjectId(req.params.id)}, {$set : {"active" : true}})
-            res.render('posting', { post: result})    
+            res.render('expires', { post: result})
             console.log(result);
         }
         else
-            res.render('posting', { post: result})
+            res.render('expires', { post: result})
             console.log(result);
         };
     })
@@ -158,7 +158,7 @@ router.post('/newapplicant', function(req,res){
 
         // And forward to success page
         res.redirect("applied");
-        //NOTE THIS NOW HAPPENS OUTSIDE OF THE MAILOPTS since we are sending 2 emails. 
+        //NOTE THIS NOW HAPPENS OUTSIDE OF THE MAILOPTS since we are sending 2 emails.
     });
 });
 
