@@ -136,7 +136,6 @@ router.post('/newapplicant', function(req,res){
             else
             {
                 console.log("Message sent: " + response.message);
-
             }
             transporter.close();
         });
@@ -159,6 +158,7 @@ router.post('/newapplicant', function(req,res){
 
         // And forward to success page
         res.redirect("applied");
+        //NOTE THIS NOW HAPPENS OUTSIDE OF THE MAILOPTS since we are sending 2 emails. 
     });
 });
 
