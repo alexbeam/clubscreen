@@ -11,6 +11,16 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* GET Applied confirmation page. */
+router.get('/applied', function(req, res, next) {
+    res.render('applied', { title: 'Placeholder' });
+});
+
+/* GET Posted confirmation page. */
+router.get('/posted', function(req, res, next) {
+    res.render('posted', { title: 'Placeholder' });
+});
+
 /* GET Calendar Page-Placeholder */
 router.get('/calendar', function(req, res, next) {
     res.render('calendar', { title: 'Placeholder' });
@@ -95,10 +105,19 @@ router.post('/newapplicant', function(req,res){
 
         var mailOptions={
             from : "uclubs.noreply@gmail.com",
-            to : mailList,
+            to : applicantEmail,
             subject : "uCLUBS - You have a new applicant",
             generateTextFromHTML : true,
             html: "<h2>New applicant for " + posting.title + "</h2><strong>" + applicantFirstName + " " + applicantLastName + "</strong> (" + applicantYear + ")<br>Email: " + applicantEmail + "<br>Phone: +1 " + applicantPhone + "<br><p><strong>Relevant Experience/What makes you a good candidate?</strong><br>" + applicantExperience + "</p>"
+        };
+
+        var mailOpts1={
+            from : "uclubs.noreply@gmail.com",
+            to : applicantEmail,
+            subject : "uCLUBS- You have successfully applied to a posting",
+            generateTextFromHTML : true,
+            html:"<h2>Confirmed: Your application has been received!" +
+            "The poster will get back to you if your skills fit his/her needs. </h2>"
         };
         console.log(mailOptions);
 
@@ -117,11 +136,29 @@ router.post('/newapplicant', function(req,res){
             else
             {
                 console.log("Message sent: " + response.message);
-                // And forward to success page
-                res.redirect("postinglist");
             }
             transporter.close();
         });
+
+        transporter.sendMail(mailOpts1, function(error, response){
+            if(error)
+            {
+                console.log(error);
+                res.end("error");
+            }
+            else
+            {
+                console.log("Message sent: " + response.message);
+
+                // And forward to success page
+                //res.redirect("applied");
+            }
+            transporter.close();
+        });
+
+        // And forward to success page
+        res.redirect("applied");
+        //NOTE THIS NOW HAPPENS OUTSIDE OF THE MAILOPTS since we are sending 2 emails. 
     });
 });
 
@@ -253,6 +290,9 @@ router.post('/addposting', function(req, res) {
                 generateTextFromHTML : true,
                 html : "<h2>Welcome to uCLUBS,</h2><p>Thank you for submitting the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
             };
+            console.log(mailOptions);
+
+
             transporter.sendMail(mailOptions, function(error, response){
                 if(error)
                 {
@@ -268,7 +308,7 @@ router.post('/addposting', function(req, res) {
             });
 
             // And forward to success page
-            res.redirect("postinglist");
+            res.redirect("posted");
         }
     });
 });
