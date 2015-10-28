@@ -9,16 +9,20 @@
 <body>
 <% include /partials/navbar %>
 <div class="container">
-    <b>Thank you for confirming your position. The application will now be live for ____ more days - expiring on Oct. __, 20__.</b>
+    <div class="col-md-6">
     <br>
     <br>
-    <b>Follow this <li><a href="/newposting"> link </a></li> to post another position.</b>
+    <p>Thank you for confirming your position. The application will be live for <%= days -%> more days, expiring on <%= post.expires %>.</p>
     <br>
     <br>
-    <b>Please give us feedback at noreply.uclubs@gmail.com to continue improving U-Clubs for you and other students. </b>
+    <p>Follow this<a href="/newposting"> link </a>to post another position.</p>
     <br>
     <br>
-    <li><a href="/postinglist"> < Back to Browse Postings</a></li>
+    <p>Please give us feedback at <span class="badge" style="background-color: #00274c; color:#ffcb05;">noreply.uclubs@gmail.com</span> to continue improving U-Clubs for you and other students. </p>
+    <br>
+    <br>
+    <a href="/postinglist">< Back to Browse Postings</a>
+    </div>
 </div>
 
 </body>

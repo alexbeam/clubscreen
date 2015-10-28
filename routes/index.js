@@ -63,14 +63,18 @@ router.get('/posting/:id', function(req,res){
 
         else {
             if (result.active == false) {
-            collection.update({_id : ObjectId(req.params.id)}, {$set : {"active" : true}})
-            res.render('expires', { post: result})
-            console.log(result);
+                collection.update({_id : ObjectId(req.params.id)}, {$set : {"active" : true}});
+                var begin = moment(result.createdAt);
+                var end = moment(result.expireAt);
+                var days_calc = end.diff(begin, 'days');
+                res.render('expires', { post: result, days: days_calc});
+                console.log(result);
+            }
+            else {
+                res.render('posting', { post: result})
+                console.log(result);
+            }
         }
-        else
-            res.render('expires', { post: result})
-            console.log(result);
-        };
     })
 });
 
@@ -260,8 +264,6 @@ router.post('/addposting', function(req, res) {
     var created_format = d_created.format("MM/DD/YYYY");
     var exp_format = d_expires.format("MM/DD/YYYY");
 
-    var days_left = d_expires.diff(d_created, 'days');
-
     var data = {
         "title" : postTitle,
         "club" : postClub,
@@ -275,8 +277,7 @@ router.post('/addposting', function(req, res) {
         "expireAt": expdate,
         "expires" : exp_format,
         "received": 0,
-        "active": false,
-        "days_left" : days_left
+        "active": false
     }
     // Submit to the DB
     collection.insert(data, function (err, doc) {
