@@ -63,11 +63,22 @@ router.get('/posting/:id', function(req,res){
 
         else {
             if (result.active == false) {
-                collection.update({_id : ObjectId(req.params.id)}, {$set : {"active" : true}});
-                var begin = moment(result.createdAt);
-                var end = moment(result.expireAt);
-                var days_calc = end.diff(begin, 'days');
-                res.render('expires', { post: result, days: days_calc});
+                var created = new Date()
+                var d_created = moment().utcOffset(-500);
+                var expdate = new Date(new Date().setDate(new Date().getDate() + Number(result.daysOnSite)));
+                var d_expires = moment(expdate).utcOffset(-500);
+                var created_format = d_created.format("MM/DD/YYYY");
+                var exp_format = d_expires.format("MM/DD/YYYY");
+
+                collection.update({_id : ObjectId(req.params.id)}, {$set : {
+                    "active" : true,
+                    "created": created_format,
+                    "createdAt" : created,
+                    "expireAt": expdate,
+                    "expires" : exp_format
+                }});
+                var days_calc = d_expires.diff(d_created, 'days');
+                res.render('expires', { expires: exp_format, days: days_calc});
                 console.log(result);
             }
             else {
@@ -110,7 +121,7 @@ router.post('/newapplicant', function(req,res){
 
         var mailOptions={
             from : "uclubs.noreply@gmail.com",
-            to : applicantEmail,
+            to : posting.email,
             subject : "uCLUBS - You have a new applicant",
             generateTextFromHTML : true,
             html: "<h2>New applicant for " + posting.title + "</h2><strong>" + applicantFirstName + " " + applicantLastName + "</strong> (" + applicantYear + ")<br>Email: " + applicantEmail + "<br>Phone: +1 " + applicantPhone + "<br><p><strong>Relevant Experience/What makes you a good candidate?</strong><br>" + applicantExperience + "</p>"
@@ -119,9 +130,9 @@ router.post('/newapplicant', function(req,res){
         var mailOpts1={
             from : "uclubs.noreply@gmail.com",
             to : applicantEmail,
-            subject : "uCLUBS- You have successfully applied to a posting",
+            subject : "uCLUBS - You have successfully applied to a posting",
             generateTextFromHTML : true,
-            html:"<h2>Confirmed: Your application has been received!" +
+            html:"<h2>Confirmed: Your application has been received! " +
             "The poster will get back to you if your skills fit his/her needs. </h2>"
         };
         console.log(mailOptions);
@@ -142,7 +153,7 @@ router.post('/newapplicant', function(req,res){
             {
                 console.log("Message sent: " + response.message);
             }
-            transporter.close();
+            //transporter.close();
         });
 
         transporter.sendMail(mailOpts1, function(error, response){
@@ -257,12 +268,6 @@ router.post('/addposting', function(req, res) {
     var collection = db.collection('postingcollection');
 
     //Timing
-    var created = new Date()
-    var d_created = moment().utcOffset(-500);
-    var expdate = new Date(new Date().setDate(new Date().getDate() + daysOnSite));
-    var d_expires = moment(expdate).utcOffset(-500);
-    var created_format = d_created.format("MM/DD/YYYY");
-    var exp_format = d_expires.format("MM/DD/YYYY");
 
     var data = {
         "title" : postTitle,
@@ -272,12 +277,13 @@ router.post('/addposting', function(req, res) {
         "position_type" : positionType,
         "club_type" : clubType,
         "description" : clubDescr,
-        "created": created_format,
-        "createdAt" : created,
-        "expireAt": expdate,
-        "expires" : exp_format,
+        "created": null,
+        "createdAt" : null,
+        "expireAt": null,
+        "expires" : null,
         "received": 0,
-        "active": false
+        "active": false,
+        "daysOnSite" : daysOnSite 
     }
     // Submit to the DB
     collection.insert(data, function (err, doc) {
