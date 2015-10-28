@@ -8,7 +8,7 @@ moment().format();
 
 /* GET Home Page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
 /* GET Applied confirmation page. */
@@ -18,6 +18,7 @@ router.get('/applied', function(req, res, next) {
 
 /* GET Posted confirmation page. */
 router.get('/posted', function(req, res, next) {
+    var passedVariable = req.query.id;
     res.render('posted', { title: 'Placeholder' });
 });
 
@@ -253,11 +254,13 @@ router.post('/addposting', function(req, res) {
 
     //Timing
     var created = new Date()
-    var fcreated = moment().utcOffset(-500);
+    var d_created = moment().utcOffset(-500);
     var expdate = new Date(new Date().setDate(new Date().getDate() + daysOnSite));
-    var fdate = moment(expdate).utcOffset(-500);
-    var created_format = fcreated.format("MM/DD/YYYY")
-    var exp_format = fdate.format("MM/DD/YYYY")
+    var d_expires = moment(expdate).utcOffset(-500);
+    var created_format = d_created.format("MM/DD/YYYY");
+    var exp_format = d_expires.format("MM/DD/YYYY");
+
+    var days_left = d_expires.diff(d_created, 'days');
 
     var data = {
         "title" : postTitle,
@@ -272,7 +275,8 @@ router.post('/addposting', function(req, res) {
         "expireAt": expdate,
         "expires" : exp_format,
         "received": 0,
-        "active": false
+        "active": false,
+        "days_left" : days_left
     }
     // Submit to the DB
     collection.insert(data, function (err, doc) {
@@ -288,7 +292,7 @@ router.post('/addposting', function(req, res) {
                 to : postEmail,
                 subject : "Activate your post on uCLUBS",
                 generateTextFromHTML : true,
-                html : "<h2>Welcome to uCLUBS,</h2><p>Thank you for submitting the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
+                html : "<h2>Welcome to uCLUBS</h2><p>Thank you for submitting the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
             };
             console.log(mailOptions);
 
@@ -308,7 +312,8 @@ router.post('/addposting', function(req, res) {
             });
 
             // And forward to success page
-            res.redirect("posted");
+            var ID = encodeURIComponent(data._id)
+            res.redirect("posted/?id=" + ID);
         }
     });
 });
