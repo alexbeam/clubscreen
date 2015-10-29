@@ -39,9 +39,9 @@ var transporter = nodemailer.createTransport("SMTP", {
         XOAuth2:
             {
             user: "uclubs.noreply@gmail.com",
-            clientId: "127548296148-kdcv51r108i6mgk0b18vssov0jhodesg.apps.googleusercontent.com",
-            clientSecret:"HSRbqGslPyBBFmUPdR1UXsvL",
-            refreshToken:"1/n3fOKuR9twOcYDnnbba5weM3VEMQMBO09UH7jyvM1xI"
+            clientId: process.env.CLIENT_ID_GMAIL,
+            clientSecret: process.env.CLIENT_SECRET_GMAIL,
+            refreshToken: process.env.REFRESH_TOLKEN_GMAIL
             }
         
     }
@@ -122,18 +122,18 @@ router.post('/newapplicant', function(req,res){
         var mailOptions={
             from : "uclubs.noreply@gmail.com",
             to : posting.email,
-            subject : "uCLUBS - You have a new applicant",
+            subject : "uCLUBS - You have a new applicant for " + posting.title,
             generateTextFromHTML : true,
-            html: "<h2>New applicant for " + posting.title + "</h2><strong>" + applicantFirstName + " " + applicantLastName + "</strong> (" + applicantYear + ")<br>Email: " + applicantEmail + "<br>Phone: +1 " + applicantPhone + "<br><p><strong>Relevant Experience/What makes you a good candidate?</strong><br>" + applicantExperience + "</p>"
+            html: "<h2>New applicant for " + posting.title + "</h2><strong>" + applicantFirstName + " " + applicantLastName + "</strong> (" + applicantYear + ")<br>Email: " + applicantEmail + "<br>Phone: +1 " + applicantPhone + "<br><p><strong>Relevant Experience/What makes you a good candidate?</strong></p>" + applicantExperience + "<p><strong>This was semt from uCLUBS.</strong></p>"
         };
 
         var mailOpts1={
             from : "uclubs.noreply@gmail.com",
             to : applicantEmail,
-            subject : "uCLUBS - You have successfully applied to a posting",
+            subject : "uCLUBS - You have successfully applied to " + posting.title,
             generateTextFromHTML : true,
-            html:"<h2>Confirmed: Your application has been received! " +
-            "The poster will get back to you if your skills fit his/her needs. </h2>"
+            html:"<h2>Your application has been received.</h2> " +
+            "<p>The poster will get back to you about your application.</p><p>Thank you for using uCLUBS, you may reply to this email if you have any feedback you would like to give about the site.</p>"
         };
         console.log(mailOptions);
 
@@ -297,7 +297,7 @@ router.post('/addposting', function(req, res) {
             var mailOptions={
                 from : "uclubs.noreply@gmail.com",
                 to : postEmail,
-                subject : "Activate your post on uCLUBS",
+                subject : "Activate" + data.title + " on uCLUBS",
                 generateTextFromHTML : true,
                 html : "<h2>Welcome to uCLUBS</h2><p>Thank you for submitting the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
             };
@@ -319,8 +319,7 @@ router.post('/addposting', function(req, res) {
             });
 
             // And forward to success page
-            var ID = encodeURIComponent(data._id)
-            res.redirect("posted/?id=" + ID);
+            var ID = encodeURIComponent(data._id);
         }
     });
 });
