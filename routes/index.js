@@ -124,7 +124,7 @@ router.post('/newapplicant', function(req,res){
             to : posting.email,
             subject : "uCLUBS - You have a new applicant for " + posting.title,
             generateTextFromHTML : true,
-            html: "<h2>New applicant for " + posting.title + "</h2><strong>" + applicantFirstName + " " + applicantLastName + "</strong> (" + applicantYear + ")<br>Email: " + applicantEmail + "<br>Phone: +1 " + applicantPhone + "<br><p><strong>Relevant Experience/What makes you a good candidate?</strong></p>" + applicantExperience + "<p><strong>This was semt from uCLUBS.</strong></p>"
+            html: "<h2>New applicant for " + posting.title + "</h2><strong>" + applicantFirstName + " " + applicantLastName + "</strong> (" + applicantYear + ")<br>Email: " + applicantEmail + "<br>Phone: +1 " + applicantPhone + "<br><p><strong>Relevant Experience/What makes you a good candidate?</strong></p>" + applicantExperience + "<p><strong>This was sent from uCLUBS.</strong></p>"
         };
 
         var mailOpts1={
