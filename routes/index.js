@@ -39,9 +39,9 @@ var transporter = nodemailer.createTransport("SMTP", {
         XOAuth2:
             {
             user: "uclubs.noreply@gmail.com",
-            clientId: "127548296148-kdcv51r108i6mgk0b18vssov0jhodesg.apps.googleusercontent.com",
-            clientSecret:"HSRbqGslPyBBFmUPdR1UXsvL",
-            refreshToken:"1/n3fOKuR9twOcYDnnbba5weM3VEMQMBO09UH7jyvM1xI"
+            clientId: "127548296148-k856mmn6e0g5dvkm6v06qv7338q41oeg.apps.googleusercontent.com",
+            clientSecret:"fWSFtnlMfxlcH0tdBi9qDBkL",
+            refreshToken:"1/xdpEzA3tEZzH1g1_J2jzfqU6EnZnILr1OJMd2mWbeUE"
             }
         
     }
