@@ -320,6 +320,7 @@ router.post('/addposting', function(req, res) {
 
             // And forward to success page
             var ID = encodeURIComponent(data._id);
+            res.redirect("posted");
         }
     });
 });
