@@ -297,7 +297,7 @@ router.post('/addposting', function(req, res) {
             var mailOptions={
                 from : "uclubs.noreply@gmail.com",
                 to : postEmail,
-                subject : "Activate" + data.title + " on uCLUBS",
+                subject : "Activate " + data.title + " on uCLUBS",
                 generateTextFromHTML : true,
                 html : "<h2>Welcome to uCLUBS</h2><p>Thank you for submitting the posting " + data.title + ", follow this link to activate it: </p><a href='http://clubscreen.herokuapp.com/posting/" + data._id + "'>http://www.u-clubs.com/posting/" + data._id + "</a>",
             };
